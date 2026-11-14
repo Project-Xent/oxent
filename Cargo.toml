@@ -1,0 +1,18 @@
+[workspace]
+resolver = "3"
+members = ["oxent-sys", "oxent"]
+
+[workspace.package]
+version = "0.3.2"
+edition = "2024"
+rust-version = "1.92"
+license = "0BSD"
+repository = "https://github.com/Project-Xent/oxent"
+keywords = ["gui", "ui", "windows", "winui", "fluent"]
+categories = ["gui", "os::windows-apis"]
+
+[profile.release]
+strip = true
+panic = "abort"
+codegen-units = 1
+lto = true
