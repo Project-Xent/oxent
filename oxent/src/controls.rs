@@ -34,6 +34,14 @@ pub enum FlexWrap {
 
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum AppBarMode {
+    Compact = sys::XTK_APPBAR_COMPACT as u32,
+    Minimal = sys::XTK_APPBAR_MINIMAL as u32,
+    Hidden = sys::XTK_APPBAR_HIDDEN as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum BadgeMode {
     Dot = sys::XTK_BADGE_DOT as u32,
     Number = sys::XTK_BADGE_NUMBER as u32,
@@ -63,6 +71,13 @@ pub enum Clock {
     System = sys::XTK_CLOCK_SYSTEM as u32,
     H12 = sys::XTK_CLOCK_12H as u32,
     H24 = sys::XTK_CLOCK_24H as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum ElementLabel {
+    Default = sys::XTK_ELEMENT_LABEL_DEFAULT as u32,
+    Collapsed = sys::XTK_ELEMENT_LABEL_COLLAPSED as u32,
 }
 
 #[repr(u32)]
@@ -99,11 +114,27 @@ pub enum InfoBarSeverity {
 
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum LabelPosition {
+    Bottom = sys::XTK_LABEL_BOTTOM as u32,
+    Right = sys::XTK_LABEL_RIGHT as u32,
+    Collapsed = sys::XTK_LABEL_COLLAPSED as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum ListSelMode {
     Single = sys::XTK_LIST_SELECT_SINGLE as u32,
     None = sys::XTK_LIST_SELECT_NONE as u32,
     Multiple = sys::XTK_LIST_SELECT_MULTIPLE as u32,
     Extended = sys::XTK_LIST_SELECT_EXTENDED as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum OverflowButton {
+    Auto = sys::XTK_OVERFLOW_BUTTON_AUTO as u32,
+    Visible = sys::XTK_OVERFLOW_BUTTON_VISIBLE as u32,
+    Collapsed = sys::XTK_OVERFLOW_BUTTON_COLLAPSED as u32,
 }
 
 #[repr(u32)]
@@ -161,6 +192,14 @@ pub enum ScrollBarIndicator {
 pub enum SliderSnap {
     Step = sys::XTK_SLIDER_SNAP_STEP as u32,
     Ticks = sys::XTK_SLIDER_SNAP_TICKS as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum SortDirection {
+    None = sys::XTK_SORT_NONE as u32,
+    Ascending = sys::XTK_SORT_ASCENDING as u32,
+    Descending = sys::XTK_SORT_DESCENDING as u32,
 }
 
 #[repr(u32)]
@@ -254,7 +293,7 @@ pub struct Container<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn container(&'ui self) -> Container<'ui, A> {
-        Container(self.el(sys::XTK_CTRL_CONTAINER))
+        Container(self.el(sys::XTK_CTRL_CONTAINER, &raw const sys::flux_ctrl_container))
     }
 }
 
@@ -373,7 +412,7 @@ pub struct Text<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn text(&'ui self) -> Text<'ui, A> {
-        Text(self.el(sys::XTK_CTRL_TEXT))
+        Text(self.el(sys::XTK_CTRL_TEXT, &raw const sys::flux_ctrl_text))
     }
 }
 
@@ -476,7 +515,7 @@ pub struct Button<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn button(&'ui self) -> Button<'ui, A> {
-        Button(self.el(sys::XTK_CTRL_BUTTON))
+        Button(self.el(sys::XTK_CTRL_BUTTON, &raw const sys::flux_ctrl_button))
     }
 }
 
@@ -563,7 +602,7 @@ pub struct Toggle<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn toggle(&'ui self) -> Toggle<'ui, A> {
-        Toggle(self.el(sys::XTK_CTRL_TOGGLE))
+        Toggle(self.el(sys::XTK_CTRL_TOGGLE, &raw const sys::flux_ctrl_toggle))
     }
 }
 
@@ -646,7 +685,7 @@ pub struct Checkbox<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn checkbox(&'ui self) -> Checkbox<'ui, A> {
-        Checkbox(self.el(sys::XTK_CTRL_CHECKBOX))
+        Checkbox(self.el(sys::XTK_CTRL_CHECKBOX, &raw const sys::flux_ctrl_checkbox))
     }
 }
 
@@ -741,7 +780,7 @@ pub struct Radio<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn radio(&'ui self) -> Radio<'ui, A> {
-        Radio(self.el(sys::XTK_CTRL_RADIO))
+        Radio(self.el(sys::XTK_CTRL_RADIO, &raw const sys::flux_ctrl_radio))
     }
 }
 
@@ -824,7 +863,7 @@ pub struct Switch<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn switch(&'ui self) -> Switch<'ui, A> {
-        Switch(self.el(sys::XTK_CTRL_SWITCH))
+        Switch(self.el(sys::XTK_CTRL_SWITCH, &raw const sys::flux_ctrl_switch))
     }
 }
 
@@ -907,7 +946,7 @@ pub struct Slider<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn slider(&'ui self) -> Slider<'ui, A> {
-        Slider(self.el(sys::XTK_CTRL_SLIDER))
+        Slider(self.el(sys::XTK_CTRL_SLIDER, &raw const sys::flux_ctrl_slider))
     }
 }
 
@@ -1038,7 +1077,7 @@ pub struct Textbox<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn textbox(&'ui self) -> Textbox<'ui, A> {
-        Textbox(self.el(sys::XTK_CTRL_TEXTBOX))
+        Textbox(self.el(sys::XTK_CTRL_TEXTBOX, &raw const sys::flux_ctrl_textbox))
     }
 }
 
@@ -1129,7 +1168,7 @@ pub struct Scroll<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn scroll(&'ui self) -> Scroll<'ui, A> {
-        Scroll(self.el(sys::XTK_CTRL_SCROLL))
+        Scroll(self.el(sys::XTK_CTRL_SCROLL, &raw const sys::flux_ctrl_scroll))
     }
 }
 
@@ -1260,7 +1299,7 @@ pub struct Image<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn image(&'ui self) -> Image<'ui, A> {
-        Image(self.el(sys::XTK_CTRL_IMAGE))
+        Image(self.el(sys::XTK_CTRL_IMAGE, &raw const sys::flux_ctrl_image))
     }
 }
 
@@ -1335,7 +1374,7 @@ pub struct Progress<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn progress(&'ui self) -> Progress<'ui, A> {
-        Progress(self.el(sys::XTK_CTRL_PROGRESS))
+        Progress(self.el(sys::XTK_CTRL_PROGRESS, &raw const sys::flux_ctrl_progress))
     }
 }
 
@@ -1442,7 +1481,7 @@ pub struct List<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn list(&'ui self) -> List<'ui, A> {
-        List(self.el(sys::XTK_CTRL_LIST))
+        List(self.el(sys::XTK_CTRL_LIST, &raw const sys::flux_ctrl_list))
     }
 }
 
@@ -1549,7 +1588,7 @@ pub struct Tab<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn tab(&'ui self) -> Tab<'ui, A> {
-        Tab(self.el(sys::XTK_CTRL_TAB))
+        Tab(self.el(sys::XTK_CTRL_TAB, &raw const sys::flux_ctrl_tab))
     }
 }
 
@@ -1620,7 +1659,7 @@ pub struct Card<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn card(&'ui self) -> Card<'ui, A> {
-        Card(self.el(sys::XTK_CTRL_CARD))
+        Card(self.el(sys::XTK_CTRL_CARD, &raw const sys::flux_ctrl_card))
     }
 }
 
@@ -1739,7 +1778,7 @@ pub struct Divider<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn divider(&'ui self) -> Divider<'ui, A> {
-        Divider(self.el(sys::XTK_CTRL_DIVIDER))
+        Divider(self.el(sys::XTK_CTRL_DIVIDER, &raw const sys::flux_ctrl_divider))
     }
 }
 
@@ -1810,7 +1849,7 @@ pub struct Canvas<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn canvas(&'ui self) -> Canvas<'ui, A> {
-        Canvas(self.el(sys::XTK_CTRL_CANVAS))
+        Canvas(self.el(sys::XTK_CTRL_CANVAS, &raw const sys::flux_ctrl_canvas))
     }
 }
 
@@ -1881,7 +1920,7 @@ pub struct Password<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn password(&'ui self) -> Password<'ui, A> {
-        Password(self.el(sys::XTK_CTRL_PASSWORD))
+        Password(self.el(sys::XTK_CTRL_PASSWORD, &raw const sys::flux_ctrl_password))
     }
 }
 
@@ -1964,7 +2003,7 @@ pub struct Number<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn number(&'ui self) -> Number<'ui, A> {
-        Number(self.el(sys::XTK_CTRL_NUMBER))
+        Number(self.el(sys::XTK_CTRL_NUMBER, &raw const sys::flux_ctrl_number))
     }
 }
 
@@ -2059,7 +2098,7 @@ pub struct Link<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn link(&'ui self) -> Link<'ui, A> {
-        Link(self.el(sys::XTK_CTRL_LINK))
+        Link(self.el(sys::XTK_CTRL_LINK, &raw const sys::flux_ctrl_link))
     }
 }
 
@@ -2142,7 +2181,7 @@ pub struct Repeat<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn repeat(&'ui self) -> Repeat<'ui, A> {
-        Repeat(self.el(sys::XTK_CTRL_REPEAT))
+        Repeat(self.el(sys::XTK_CTRL_REPEAT, &raw const sys::flux_ctrl_repeat))
     }
 }
 
@@ -2229,7 +2268,7 @@ pub struct Progressring<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn progressring(&'ui self) -> Progressring<'ui, A> {
-        Progressring(self.el(sys::XTK_CTRL_PROGRESSRING))
+        Progressring(self.el(sys::XTK_CTRL_PROGRESSRING, &raw const sys::flux_ctrl_progressring))
     }
 }
 
@@ -2320,7 +2359,7 @@ pub struct Badge<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn badge(&'ui self) -> Badge<'ui, A> {
-        Badge(self.el(sys::XTK_CTRL_BADGE))
+        Badge(self.el(sys::XTK_CTRL_BADGE, &raw const sys::flux_ctrl_badge))
     }
 }
 
@@ -2403,7 +2442,7 @@ pub struct Tooltip<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn tooltip(&'ui self) -> Tooltip<'ui, A> {
-        Tooltip(self.el(sys::XTK_CTRL_TOOLTIP))
+        Tooltip(self.el(sys::XTK_CTRL_TOOLTIP, &raw const sys::flux_ctrl_tooltip))
     }
 }
 
@@ -2482,7 +2521,7 @@ pub struct Flyout<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn flyout(&'ui self) -> Flyout<'ui, A> {
-        Flyout(self.el(sys::XTK_CTRL_FLYOUT))
+        Flyout(self.el(sys::XTK_CTRL_FLYOUT, &raw const sys::flux_ctrl_flyout))
     }
 }
 
@@ -2561,7 +2600,7 @@ pub struct Menufly<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn menufly(&'ui self) -> Menufly<'ui, A> {
-        Menufly(self.el(sys::XTK_CTRL_MENUFLY))
+        Menufly(self.el(sys::XTK_CTRL_MENUFLY, &raw const sys::flux_ctrl_menufly))
     }
 }
 
@@ -2640,7 +2679,7 @@ pub struct Dropdown<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn dropdown(&'ui self) -> Dropdown<'ui, A> {
-        Dropdown(self.el(sys::XTK_CTRL_DROPDOWN))
+        Dropdown(self.el(sys::XTK_CTRL_DROPDOWN, &raw const sys::flux_ctrl_dropdown))
     }
 }
 
@@ -2727,7 +2766,7 @@ pub struct Split<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn split(&'ui self) -> Split<'ui, A> {
-        Split(self.el(sys::XTK_CTRL_SPLIT))
+        Split(self.el(sys::XTK_CTRL_SPLIT, &raw const sys::flux_ctrl_split))
     }
 }
 
@@ -2814,7 +2853,7 @@ pub struct Combo<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn combo(&'ui self) -> Combo<'ui, A> {
-        Combo(self.el(sys::XTK_CTRL_COMBO))
+        Combo(self.el(sys::XTK_CTRL_COMBO, &raw const sys::flux_ctrl_combo))
     }
 }
 
@@ -2913,7 +2952,7 @@ pub struct Expander<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn expander(&'ui self) -> Expander<'ui, A> {
-        Expander(self.el(sys::XTK_CTRL_EXPANDER))
+        Expander(self.el(sys::XTK_CTRL_EXPANDER, &raw const sys::flux_ctrl_expander))
     }
 }
 
@@ -2996,7 +3035,7 @@ pub struct Exphead<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn exphead(&'ui self) -> Exphead<'ui, A> {
-        Exphead(self.el(sys::XTK_CTRL_EXPHEAD))
+        Exphead(self.el(sys::XTK_CTRL_EXPHEAD, &raw const sys::flux_ctrl_exphead))
     }
 }
 
@@ -3083,7 +3122,7 @@ pub struct Expbody<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn expbody(&'ui self) -> Expbody<'ui, A> {
-        Expbody(self.el(sys::XTK_CTRL_EXPBODY))
+        Expbody(self.el(sys::XTK_CTRL_EXPBODY, &raw const sys::flux_ctrl_expbody))
     }
 }
 
@@ -3202,7 +3241,7 @@ pub struct Infobar<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn infobar(&'ui self) -> Infobar<'ui, A> {
-        Infobar(self.el(sys::XTK_CTRL_INFOBAR))
+        Infobar(self.el(sys::XTK_CTRL_INFOBAR, &raw const sys::flux_ctrl_infobar))
     }
 }
 
@@ -3289,7 +3328,7 @@ pub struct Dialog<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn dialog(&'ui self) -> Dialog<'ui, A> {
-        Dialog(self.el(sys::XTK_CTRL_DIALOG))
+        Dialog(self.el(sys::XTK_CTRL_DIALOG, &raw const sys::flux_ctrl_dialog))
     }
 }
 
@@ -3392,7 +3431,7 @@ pub struct Dialogbody<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn dialogbody(&'ui self) -> Dialogbody<'ui, A> {
-        Dialogbody(self.el(sys::XTK_CTRL_DIALOGBODY))
+        Dialogbody(self.el(sys::XTK_CTRL_DIALOGBODY, &raw const sys::flux_ctrl_dialogbody))
     }
 }
 
@@ -3511,7 +3550,7 @@ pub struct Menubar<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn menubar(&'ui self) -> Menubar<'ui, A> {
-        Menubar(self.el(sys::XTK_CTRL_MENUBAR))
+        Menubar(self.el(sys::XTK_CTRL_MENUBAR, &raw const sys::flux_ctrl_menubar))
     }
 }
 
@@ -3582,7 +3621,7 @@ pub struct Menuitem<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn menuitem(&'ui self) -> Menuitem<'ui, A> {
-        Menuitem(self.el(sys::XTK_CTRL_MENUITEM))
+        Menuitem(self.el(sys::XTK_CTRL_MENUITEM, &raw const sys::flux_ctrl_menuitem))
     }
 }
 
@@ -3673,7 +3712,7 @@ pub struct Nav<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn nav(&'ui self) -> Nav<'ui, A> {
-        Nav(self.el(sys::XTK_CTRL_NAV))
+        Nav(self.el(sys::XTK_CTRL_NAV, &raw const sys::flux_ctrl_nav))
     }
 }
 
@@ -3756,7 +3795,7 @@ pub struct Navitem<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn navitem(&'ui self) -> Navitem<'ui, A> {
-        Navitem(self.el(sys::XTK_CTRL_NAVITEM))
+        Navitem(self.el(sys::XTK_CTRL_NAVITEM, &raw const sys::flux_ctrl_navitem))
     }
 }
 
@@ -3847,7 +3886,7 @@ pub struct Tabs<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn tabs(&'ui self) -> Tabs<'ui, A> {
-        Tabs(self.el(sys::XTK_CTRL_TABS))
+        Tabs(self.el(sys::XTK_CTRL_TABS, &raw const sys::flux_ctrl_tabs))
     }
 }
 
@@ -3938,7 +3977,7 @@ pub struct Tabitem<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn tabitem(&'ui self) -> Tabitem<'ui, A> {
-        Tabitem(self.el(sys::XTK_CTRL_TABITEM))
+        Tabitem(self.el(sys::XTK_CTRL_TABITEM, &raw const sys::flux_ctrl_tabitem))
     }
 }
 
@@ -4029,7 +4068,7 @@ pub struct Listitem<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn listitem(&'ui self) -> Listitem<'ui, A> {
-        Listitem(self.el(sys::XTK_CTRL_LISTITEM))
+        Listitem(self.el(sys::XTK_CTRL_LISTITEM, &raw const sys::flux_ctrl_listitem))
     }
 }
 
@@ -4120,7 +4159,7 @@ pub struct Listbox<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn listbox(&'ui self) -> Listbox<'ui, A> {
-        Listbox(self.el(sys::XTK_CTRL_LISTBOX))
+        Listbox(self.el(sys::XTK_CTRL_LISTBOX, &raw const sys::flux_ctrl_listbox))
     }
 }
 
@@ -4227,7 +4266,7 @@ pub struct Gridview<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn gridview(&'ui self) -> Gridview<'ui, A> {
-        Gridview(self.el(sys::XTK_CTRL_GRIDVIEW))
+        Gridview(self.el(sys::XTK_CTRL_GRIDVIEW, &raw const sys::flux_ctrl_gridview))
     }
 }
 
@@ -4334,7 +4373,7 @@ pub struct Repeater<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn repeater(&'ui self) -> Repeater<'ui, A> {
-        Repeater(self.el(sys::XTK_CTRL_REPEATER))
+        Repeater(self.el(sys::XTK_CTRL_REPEATER, &raw const sys::flux_ctrl_repeater))
     }
 }
 
@@ -4433,7 +4472,7 @@ pub struct Itemsview<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn itemsview(&'ui self) -> Itemsview<'ui, A> {
-        Itemsview(self.el(sys::XTK_CTRL_ITEMSVIEW))
+        Itemsview(self.el(sys::XTK_CTRL_ITEMSVIEW, &raw const sys::flux_ctrl_itemsview))
     }
 }
 
@@ -4544,7 +4583,7 @@ pub struct Flip<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn flip(&'ui self) -> Flip<'ui, A> {
-        Flip(self.el(sys::XTK_CTRL_FLIP))
+        Flip(self.el(sys::XTK_CTRL_FLIP, &raw const sys::flux_ctrl_flip))
     }
 }
 
@@ -4627,7 +4666,7 @@ pub struct Pips<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn pips(&'ui self) -> Pips<'ui, A> {
-        Pips(self.el(sys::XTK_CTRL_PIPS))
+        Pips(self.el(sys::XTK_CTRL_PIPS, &raw const sys::flux_ctrl_pips))
     }
 }
 
@@ -4722,7 +4761,7 @@ pub struct Suggest<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn suggest(&'ui self) -> Suggest<'ui, A> {
-        Suggest(self.el(sys::XTK_CTRL_SUGGEST))
+        Suggest(self.el(sys::XTK_CTRL_SUGGEST, &raw const sys::flux_ctrl_suggest))
     }
 }
 
@@ -4817,7 +4856,7 @@ pub struct Togglesplit<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn togglesplit(&'ui self) -> Togglesplit<'ui, A> {
-        Togglesplit(self.el(sys::XTK_CTRL_TOGGLESPLIT))
+        Togglesplit(self.el(sys::XTK_CTRL_TOGGLESPLIT, &raw const sys::flux_ctrl_togglesplit))
     }
 }
 
@@ -4904,7 +4943,7 @@ pub struct Radiogroup<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn radiogroup(&'ui self) -> Radiogroup<'ui, A> {
-        Radiogroup(self.el(sys::XTK_CTRL_RADIOGROUP))
+        Radiogroup(self.el(sys::XTK_CTRL_RADIOGROUP, &raw const sys::flux_ctrl_radiogroup))
     }
 }
 
@@ -4995,7 +5034,7 @@ pub struct Rating<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn rating(&'ui self) -> Rating<'ui, A> {
-        Rating(self.el(sys::XTK_CTRL_RATING))
+        Rating(self.el(sys::XTK_CTRL_RATING, &raw const sys::flux_ctrl_rating))
     }
 }
 
@@ -5098,7 +5137,7 @@ pub struct Selector<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn selector(&'ui self) -> Selector<'ui, A> {
-        Selector(self.el(sys::XTK_CTRL_SELECTOR))
+        Selector(self.el(sys::XTK_CTRL_SELECTOR, &raw const sys::flux_ctrl_selector))
     }
 }
 
@@ -5185,7 +5224,7 @@ pub struct Selectoritem<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn selectoritem(&'ui self) -> Selectoritem<'ui, A> {
-        Selectoritem(self.el(sys::XTK_CTRL_SELECTORITEM))
+        Selectoritem(self.el(sys::XTK_CTRL_SELECTORITEM, &raw const sys::flux_ctrl_selectoritem))
     }
 }
 
@@ -5276,7 +5315,7 @@ pub struct Breadcrumb<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn breadcrumb(&'ui self) -> Breadcrumb<'ui, A> {
-        Breadcrumb(self.el(sys::XTK_CTRL_BREADCRUMB))
+        Breadcrumb(self.el(sys::XTK_CTRL_BREADCRUMB, &raw const sys::flux_ctrl_breadcrumb))
     }
 }
 
@@ -5363,7 +5402,7 @@ pub struct Crumb<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn crumb(&'ui self) -> Crumb<'ui, A> {
-        Crumb(self.el(sys::XTK_CTRL_CRUMB))
+        Crumb(self.el(sys::XTK_CTRL_CRUMB, &raw const sys::flux_ctrl_crumb))
     }
 }
 
@@ -5454,7 +5493,7 @@ pub struct Teachtip<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn teachtip(&'ui self) -> Teachtip<'ui, A> {
-        Teachtip(self.el(sys::XTK_CTRL_TEACHTIP))
+        Teachtip(self.el(sys::XTK_CTRL_TEACHTIP, &raw const sys::flux_ctrl_teachtip))
     }
 }
 
@@ -5581,7 +5620,7 @@ pub struct Tree<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn tree(&'ui self) -> Tree<'ui, A> {
-        Tree(self.el(sys::XTK_CTRL_TREE))
+        Tree(self.el(sys::XTK_CTRL_TREE, &raw const sys::flux_ctrl_tree))
     }
 }
 
@@ -5676,7 +5715,7 @@ pub struct Treeitem<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn treeitem(&'ui self) -> Treeitem<'ui, A> {
-        Treeitem(self.el(sys::XTK_CTRL_TREEITEM))
+        Treeitem(self.el(sys::XTK_CTRL_TREEITEM, &raw const sys::flux_ctrl_treeitem))
     }
 }
 
@@ -5771,7 +5810,7 @@ pub struct Refresh<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn refresh(&'ui self) -> Refresh<'ui, A> {
-        Refresh(self.el(sys::XTK_CTRL_REFRESH))
+        Refresh(self.el(sys::XTK_CTRL_REFRESH, &raw const sys::flux_ctrl_refresh))
     }
 }
 
@@ -5858,7 +5897,7 @@ pub struct Avatar<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn avatar(&'ui self) -> Avatar<'ui, A> {
-        Avatar(self.el(sys::XTK_CTRL_AVATAR))
+        Avatar(self.el(sys::XTK_CTRL_AVATAR, &raw const sys::flux_ctrl_avatar))
     }
 }
 
@@ -5953,7 +5992,7 @@ pub struct Pager<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn pager(&'ui self) -> Pager<'ui, A> {
-        Pager(self.el(sys::XTK_CTRL_PAGER))
+        Pager(self.el(sys::XTK_CTRL_PAGER, &raw const sys::flux_ctrl_pager))
     }
 }
 
@@ -6068,7 +6107,7 @@ pub struct Splitview<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn splitview(&'ui self) -> Splitview<'ui, A> {
-        Splitview(self.el(sys::XTK_CTRL_SPLITVIEW))
+        Splitview(self.el(sys::XTK_CTRL_SPLITVIEW, &raw const sys::flux_ctrl_splitview))
     }
 }
 
@@ -6187,7 +6226,7 @@ pub struct Splitpane<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn splitpane(&'ui self) -> Splitpane<'ui, A> {
-        Splitpane(self.el(sys::XTK_CTRL_SPLITPANE))
+        Splitpane(self.el(sys::XTK_CTRL_SPLITPANE, &raw const sys::flux_ctrl_splitpane))
     }
 }
 
@@ -6306,7 +6345,7 @@ pub struct Splitbody<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn splitbody(&'ui self) -> Splitbody<'ui, A> {
-        Splitbody(self.el(sys::XTK_CTRL_SPLITBODY))
+        Splitbody(self.el(sys::XTK_CTRL_SPLITBODY, &raw const sys::flux_ctrl_splitbody))
     }
 }
 
@@ -6425,7 +6464,7 @@ pub struct Titlebar<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn titlebar(&'ui self) -> Titlebar<'ui, A> {
-        Titlebar(self.el(sys::XTK_CTRL_TITLEBAR))
+        Titlebar(self.el(sys::XTK_CTRL_TITLEBAR, &raw const sys::flux_ctrl_titlebar))
     }
 }
 
@@ -6532,7 +6571,7 @@ pub struct Scrollbar<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn scrollbar(&'ui self) -> Scrollbar<'ui, A> {
-        Scrollbar(self.el(sys::XTK_CTRL_SCROLLBAR))
+        Scrollbar(self.el(sys::XTK_CTRL_SCROLLBAR, &raw const sys::flux_ctrl_scrollbar))
     }
 }
 
@@ -6639,7 +6678,7 @@ pub struct Looping<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn looping(&'ui self) -> Looping<'ui, A> {
-        Looping(self.el(sys::XTK_CTRL_LOOPING))
+        Looping(self.el(sys::XTK_CTRL_LOOPING, &raw const sys::flux_ctrl_looping))
     }
 }
 
@@ -6738,7 +6777,7 @@ pub struct Datepicker<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn datepicker(&'ui self) -> Datepicker<'ui, A> {
-        Datepicker(self.el(sys::XTK_CTRL_DATEPICKER))
+        Datepicker(self.el(sys::XTK_CTRL_DATEPICKER, &raw const sys::flux_ctrl_datepicker))
     }
 }
 
@@ -6829,7 +6868,7 @@ pub struct Timepicker<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn timepicker(&'ui self) -> Timepicker<'ui, A> {
-        Timepicker(self.el(sys::XTK_CTRL_TIMEPICKER))
+        Timepicker(self.el(sys::XTK_CTRL_TIMEPICKER, &raw const sys::flux_ctrl_timepicker))
     }
 }
 
@@ -6920,7 +6959,7 @@ pub struct Calendar<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn calendar(&'ui self) -> Calendar<'ui, A> {
-        Calendar(self.el(sys::XTK_CTRL_CALENDAR))
+        Calendar(self.el(sys::XTK_CTRL_CALENDAR, &raw const sys::flux_ctrl_calendar))
     }
 }
 
@@ -7015,7 +7054,7 @@ pub struct Colorpicker<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {
     pub fn colorpicker(&'ui self) -> Colorpicker<'ui, A> {
-        Colorpicker(self.el(sys::XTK_CTRL_COLORPICKER))
+        Colorpicker(self.el(sys::XTK_CTRL_COLORPICKER, &raw const sys::flux_ctrl_colorpicker))
     }
 }
 
@@ -7098,6 +7137,536 @@ impl<'ui, A: App> Colorpicker<'ui, A> {
 
 impl<'ui, A: App> From<Colorpicker<'ui, A>> for El<'ui, A> {
     fn from(b: Colorpicker<'ui, A>) -> Self {
+        b.0
+    }
+}
+
+pub struct Colheader<'ui, A: App>(pub(crate) El<'ui, A>);
+
+impl<'ui, A: App> Ui<'ui, A> {
+    pub fn colheader(&'ui self) -> Colheader<'ui, A> {
+        Colheader(self.el(sys::XTK_CTRL_COLHEADER, &raw const sys::flux_ctrl_colheader))
+    }
+}
+
+impl<'ui, A: App> Colheader<'ui, A> {
+    pub fn key(self, key: u64) -> Self {
+        self.0.key(key);
+        self
+    }
+    pub fn child(self, child: impl Into<El<'ui, A>>) -> Self {
+        self.0.child(child.into());
+        self
+    }
+    pub fn children<I: IntoIterator<Item = El<'ui, A>>>(self, kids: I) -> Self {
+        for kid in kids {
+            self.0.child(kid);
+        }
+        self
+    }
+    pub fn w(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_WIDTH, Value::F32(v));
+        self
+    }
+    pub fn h(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_HEIGHT, Value::F32(v));
+        self
+    }
+    pub fn grow(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_GROW, Value::F32(v));
+        self
+    }
+    pub fn shrink(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_SHRINK, Value::F32(v));
+        self
+    }
+    pub fn self_(self, v: FlexAlign) -> Self {
+        self.0.prop(sys::XTK_PROP_ALIGN_SELF, Value::Enum(v as u32));
+        self
+    }
+    pub fn ml(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_LEFT, Value::F32(v));
+        self
+    }
+    pub fn mt(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_TOP, Value::F32(v));
+        self
+    }
+    pub fn mr(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_RIGHT, Value::F32(v));
+        self
+    }
+    pub fn mb(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_BOTTOM, Value::F32(v));
+        self
+    }
+    pub fn tip(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+}
+
+impl<'ui, A: App> From<Colheader<'ui, A>> for El<'ui, A> {
+    fn from(b: Colheader<'ui, A>) -> Self {
+        b.0
+    }
+}
+
+pub struct Colitem<'ui, A: App>(pub(crate) El<'ui, A>);
+
+impl<'ui, A: App> Ui<'ui, A> {
+    pub fn colitem(&'ui self) -> Colitem<'ui, A> {
+        Colitem(self.el(sys::XTK_CTRL_COLITEM, &raw const sys::flux_ctrl_colitem))
+    }
+}
+
+impl<'ui, A: App> Colitem<'ui, A> {
+    pub fn key(self, key: u64) -> Self {
+        self.0.key(key);
+        self
+    }
+    pub fn child(self, child: impl Into<El<'ui, A>>) -> Self {
+        self.0.child(child.into());
+        self
+    }
+    pub fn children<I: IntoIterator<Item = El<'ui, A>>>(self, kids: I) -> Self {
+        for kid in kids {
+            self.0.child(kid);
+        }
+        self
+    }
+    pub fn w(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_WIDTH, Value::F32(v));
+        self
+    }
+    pub fn minw(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MIN_WIDTH, Value::F32(v));
+        self
+    }
+    pub fn maxw(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MAX_WIDTH, Value::F32(v));
+        self
+    }
+    pub fn text(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_TEXT, Value::Str(v.into()));
+        self
+    }
+    pub fn tip(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn align(self, v: TextAlign) -> Self {
+        self.0.prop(sys::XTK_PROP_TEXT_ALIGN, Value::Enum(v as u32));
+        self
+    }
+    pub fn enabled(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
+        self
+    }
+    pub fn resizable(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_RESIZABLE, Value::Bool(v));
+        self
+    }
+    pub fn sort(self, v: SortDirection) -> Self {
+        self.0.prop(sys::XTK_PROP_SORT_DIRECTION, Value::Enum(v as u32));
+        self
+    }
+    pub fn on_invoke(self, msg: A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_INVOKE, Handler::Value(msg));
+        self
+    }
+    pub fn on_resize(self, f: fn(f32) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_RESIZE, Handler::F32(f));
+        self
+    }
+    pub fn on_fit(self, msg: A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_FIT, Handler::Value(msg));
+        self
+    }
+    pub fn on_reorder(self, f: fn(i32) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_REORDER, Handler::I32(f));
+        self
+    }
+}
+
+impl<'ui, A: App> From<Colitem<'ui, A>> for El<'ui, A> {
+    fn from(b: Colitem<'ui, A>) -> Self {
+        b.0
+    }
+}
+
+pub struct Commandbar<'ui, A: App>(pub(crate) El<'ui, A>);
+
+impl<'ui, A: App> Ui<'ui, A> {
+    pub fn commandbar(&'ui self) -> Commandbar<'ui, A> {
+        Commandbar(self.el(sys::XTK_CTRL_COMMANDBAR, &raw const sys::flux_ctrl_commandbar))
+    }
+}
+
+impl<'ui, A: App> Commandbar<'ui, A> {
+    pub fn key(self, key: u64) -> Self {
+        self.0.key(key);
+        self
+    }
+    pub fn child(self, child: impl Into<El<'ui, A>>) -> Self {
+        self.0.child(child.into());
+        self
+    }
+    pub fn children<I: IntoIterator<Item = El<'ui, A>>>(self, kids: I) -> Self {
+        for kid in kids {
+            self.0.child(kid);
+        }
+        self
+    }
+    pub fn w(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_WIDTH, Value::F32(v));
+        self
+    }
+    pub fn h(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_HEIGHT, Value::F32(v));
+        self
+    }
+    pub fn grow(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_GROW, Value::F32(v));
+        self
+    }
+    pub fn self_(self, v: FlexAlign) -> Self {
+        self.0.prop(sys::XTK_PROP_ALIGN_SELF, Value::Enum(v as u32));
+        self
+    }
+    pub fn ml(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_LEFT, Value::F32(v));
+        self
+    }
+    pub fn mt(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_TOP, Value::F32(v));
+        self
+    }
+    pub fn mr(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_RIGHT, Value::F32(v));
+        self
+    }
+    pub fn mb(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_BOTTOM, Value::F32(v));
+        self
+    }
+    pub fn tip(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn enabled(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
+        self
+    }
+    pub fn open(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_OPEN, Value::Bool(v));
+        self
+    }
+    pub fn sticky(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_IS_STICKY, Value::Bool(v));
+        self
+    }
+    pub fn mode(self, v: AppBarMode) -> Self {
+        self.0.prop(sys::XTK_PROP_CLOSED_DISPLAY_MODE, Value::Enum(v as u32));
+        self
+    }
+    pub fn labels(self, v: LabelPosition) -> Self {
+        self.0.prop(sys::XTK_PROP_DEFAULT_LABEL_POSITION, Value::Enum(v as u32));
+        self
+    }
+    pub fn more(self, v: OverflowButton) -> Self {
+        self.0.prop(sys::XTK_PROP_OVERFLOW_BUTTON_VISIBILITY, Value::Enum(v as u32));
+        self
+    }
+    pub fn dynamic(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_DYNAMIC_OVERFLOW, Value::Bool(v));
+        self
+    }
+    pub fn on_open(self, f: fn(bool) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_OPEN, Handler::Bool(f));
+        self
+    }
+}
+
+impl<'ui, A: App> From<Commandbar<'ui, A>> for El<'ui, A> {
+    fn from(b: Commandbar<'ui, A>) -> Self {
+        b.0
+    }
+}
+
+pub struct Appbarbutton<'ui, A: App>(pub(crate) El<'ui, A>);
+
+impl<'ui, A: App> Ui<'ui, A> {
+    pub fn appbarbutton(&'ui self) -> Appbarbutton<'ui, A> {
+        Appbarbutton(self.el(sys::XTK_CTRL_APPBARBUTTON, &raw const sys::flux_ctrl_appbarbutton))
+    }
+}
+
+impl<'ui, A: App> Appbarbutton<'ui, A> {
+    pub fn key(self, key: u64) -> Self {
+        self.0.key(key);
+        self
+    }
+    pub fn child(self, child: impl Into<El<'ui, A>>) -> Self {
+        self.0.child(child.into());
+        self
+    }
+    pub fn children<I: IntoIterator<Item = El<'ui, A>>>(self, kids: I) -> Self {
+        for kid in kids {
+            self.0.child(kid);
+        }
+        self
+    }
+    pub fn w(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_WIDTH, Value::F32(v));
+        self
+    }
+    pub fn h(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_HEIGHT, Value::F32(v));
+        self
+    }
+    pub fn grow(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_GROW, Value::F32(v));
+        self
+    }
+    pub fn self_(self, v: FlexAlign) -> Self {
+        self.0.prop(sys::XTK_PROP_ALIGN_SELF, Value::Enum(v as u32));
+        self
+    }
+    pub fn ml(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_LEFT, Value::F32(v));
+        self
+    }
+    pub fn mt(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_TOP, Value::F32(v));
+        self
+    }
+    pub fn mr(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_RIGHT, Value::F32(v));
+        self
+    }
+    pub fn mb(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_BOTTOM, Value::F32(v));
+        self
+    }
+    pub fn tip(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn text(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_TEXT, Value::Str(v.into()));
+        self
+    }
+    pub fn icon(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_ICON, Value::Str(v.into()));
+        self
+    }
+    pub fn enabled(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
+        self
+    }
+    pub fn labelpos(self, v: ElementLabel) -> Self {
+        self.0.prop(sys::XTK_PROP_LABEL_POSITION, Value::Enum(v as u32));
+        self
+    }
+    pub fn accel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_ACCELERATOR_TEXT, Value::Str(v.into()));
+        self
+    }
+    pub fn secondary(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_SECONDARY, Value::Bool(v));
+        self
+    }
+    pub fn order(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_DYNAMIC_OVERFLOW_ORDER, Value::I32(v));
+        self
+    }
+    pub fn on_invoke(self, msg: A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_INVOKE, Handler::Value(msg));
+        self
+    }
+}
+
+impl<'ui, A: App> From<Appbarbutton<'ui, A>> for El<'ui, A> {
+    fn from(b: Appbarbutton<'ui, A>) -> Self {
+        b.0
+    }
+}
+
+pub struct Appbartoggle<'ui, A: App>(pub(crate) El<'ui, A>);
+
+impl<'ui, A: App> Ui<'ui, A> {
+    pub fn appbartoggle(&'ui self) -> Appbartoggle<'ui, A> {
+        Appbartoggle(self.el(sys::XTK_CTRL_APPBARTOGGLE, &raw const sys::flux_ctrl_appbartoggle))
+    }
+}
+
+impl<'ui, A: App> Appbartoggle<'ui, A> {
+    pub fn key(self, key: u64) -> Self {
+        self.0.key(key);
+        self
+    }
+    pub fn child(self, child: impl Into<El<'ui, A>>) -> Self {
+        self.0.child(child.into());
+        self
+    }
+    pub fn children<I: IntoIterator<Item = El<'ui, A>>>(self, kids: I) -> Self {
+        for kid in kids {
+            self.0.child(kid);
+        }
+        self
+    }
+    pub fn w(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_WIDTH, Value::F32(v));
+        self
+    }
+    pub fn h(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_HEIGHT, Value::F32(v));
+        self
+    }
+    pub fn grow(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_GROW, Value::F32(v));
+        self
+    }
+    pub fn self_(self, v: FlexAlign) -> Self {
+        self.0.prop(sys::XTK_PROP_ALIGN_SELF, Value::Enum(v as u32));
+        self
+    }
+    pub fn ml(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_LEFT, Value::F32(v));
+        self
+    }
+    pub fn mt(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_TOP, Value::F32(v));
+        self
+    }
+    pub fn mr(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_RIGHT, Value::F32(v));
+        self
+    }
+    pub fn mb(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_BOTTOM, Value::F32(v));
+        self
+    }
+    pub fn tip(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn text(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_TEXT, Value::Str(v.into()));
+        self
+    }
+    pub fn icon(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_ICON, Value::Str(v.into()));
+        self
+    }
+    pub fn enabled(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
+        self
+    }
+    pub fn labelpos(self, v: ElementLabel) -> Self {
+        self.0.prop(sys::XTK_PROP_LABEL_POSITION, Value::Enum(v as u32));
+        self
+    }
+    pub fn accel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_ACCELERATOR_TEXT, Value::Str(v.into()));
+        self
+    }
+    pub fn checked(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_CHECKED, Value::Bool(v));
+        self
+    }
+    pub fn secondary(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_SECONDARY, Value::Bool(v));
+        self
+    }
+    pub fn order(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_DYNAMIC_OVERFLOW_ORDER, Value::I32(v));
+        self
+    }
+    pub fn on_change(self, f: fn(bool) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_CHANGE_BOOL, Handler::Bool(f));
+        self
+    }
+}
+
+impl<'ui, A: App> From<Appbartoggle<'ui, A>> for El<'ui, A> {
+    fn from(b: Appbartoggle<'ui, A>) -> Self {
+        b.0
+    }
+}
+
+pub struct Appbarsep<'ui, A: App>(pub(crate) El<'ui, A>);
+
+impl<'ui, A: App> Ui<'ui, A> {
+    pub fn appbarsep(&'ui self) -> Appbarsep<'ui, A> {
+        Appbarsep(self.el(sys::XTK_CTRL_APPBARSEP, &raw const sys::flux_ctrl_appbarsep))
+    }
+}
+
+impl<'ui, A: App> Appbarsep<'ui, A> {
+    pub fn key(self, key: u64) -> Self {
+        self.0.key(key);
+        self
+    }
+    pub fn child(self, child: impl Into<El<'ui, A>>) -> Self {
+        self.0.child(child.into());
+        self
+    }
+    pub fn children<I: IntoIterator<Item = El<'ui, A>>>(self, kids: I) -> Self {
+        for kid in kids {
+            self.0.child(kid);
+        }
+        self
+    }
+    pub fn w(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_WIDTH, Value::F32(v));
+        self
+    }
+    pub fn h(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_HEIGHT, Value::F32(v));
+        self
+    }
+    pub fn grow(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_GROW, Value::F32(v));
+        self
+    }
+    pub fn self_(self, v: FlexAlign) -> Self {
+        self.0.prop(sys::XTK_PROP_ALIGN_SELF, Value::Enum(v as u32));
+        self
+    }
+    pub fn ml(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_LEFT, Value::F32(v));
+        self
+    }
+    pub fn mt(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_TOP, Value::F32(v));
+        self
+    }
+    pub fn mr(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_RIGHT, Value::F32(v));
+        self
+    }
+    pub fn mb(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_BOTTOM, Value::F32(v));
+        self
+    }
+    pub fn tip(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn secondary(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_SECONDARY, Value::Bool(v));
+        self
+    }
+    pub fn order(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_DYNAMIC_OVERFLOW_ORDER, Value::I32(v));
+        self
+    }
+}
+
+impl<'ui, A: App> From<Appbarsep<'ui, A>> for El<'ui, A> {
+    fn from(b: Appbarsep<'ui, A>) -> Self {
         b.0
     }
 }

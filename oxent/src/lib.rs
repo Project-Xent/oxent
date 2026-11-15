@@ -122,7 +122,8 @@ impl<'ui, A: App> Ui<'ui, A> {
         self.model
     }
 
-    pub(crate) fn el(&'ui self, ty: u32) -> El<'ui, A> {
+    pub(crate) fn el(&'ui self, ty: u32, module: *const sys::FluxControlModule) -> El<'ui, A> {
+        unsafe { sys::flux_controls_use(module) };
         let mut els = self.els.borrow_mut();
         els.push(ElData { ty, key: None, props: Vec::new(), handlers: Vec::new(), kids: Vec::new(), items: None });
         El { ui: self, id: els.len() - 1, _own: PhantomData }

@@ -132,7 +132,7 @@ impl<'r, 'ui, A: App> Recon<'r, 'ui, A> {
         upsert(&mut data.props, sys::XTK_PROP_REALIZED_FIRST, Value::I32(first.max(0)));
         let span = (last - first + 1).max(1) as usize;
         for i in first.max(0)..=last {
-            let row = self.ui.el(sys::XTK_CTRL_LISTITEM);
+            let row = self.ui.el(sys::XTK_CTRL_LISTITEM, &raw const sys::flux_ctrl_listitem);
             row.key((i as usize % span) as u64);
             row.child(item(self.ui, i as usize));
             data.kids.push(row.id);

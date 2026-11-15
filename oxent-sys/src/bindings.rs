@@ -83,7 +83,14 @@ pub const XTK_CTRL_CALDAY: XtkCtrlType = 74;
 pub const XTK_CTRL_COLORPICKER: XtkCtrlType = 75;
 pub const XTK_CTRL_COLORSPECTRUM: XtkCtrlType = 76;
 pub const XTK_CTRL_COLORSLIDER: XtkCtrlType = 77;
-pub const XTK_CTRL_TYPE_COUNT: XtkCtrlType = 78;
+pub const XTK_CTRL_COLHEADER: XtkCtrlType = 78;
+pub const XTK_CTRL_COLITEM: XtkCtrlType = 79;
+pub const XTK_CTRL_COMMANDBAR: XtkCtrlType = 80;
+pub const XTK_CTRL_APPBARBUTTON: XtkCtrlType = 81;
+pub const XTK_CTRL_APPBARTOGGLE: XtkCtrlType = 82;
+pub const XTK_CTRL_APPBARSEP: XtkCtrlType = 83;
+pub const XTK_CTRL_CMDMORE: XtkCtrlType = 84;
+pub const XTK_CTRL_TYPE_COUNT: XtkCtrlType = 85;
 pub type XtkCtrlType = ::core::ffi::c_uint;
 pub const XTK_PROP_INVALID: XtkStandardPropertyId = 0;
 pub const XTK_PROP_WIDTH: XtkStandardPropertyId = 1;
@@ -227,7 +234,20 @@ pub const XTK_PROP_SELECTABLE: XtkStandardPropertyId = 138;
 pub const XTK_PROP_REALIZED_FIRST: XtkStandardPropertyId = 139;
 pub const XTK_PROP_SCROLL_X: XtkStandardPropertyId = 140;
 pub const XTK_PROP_SCROLL_Y: XtkStandardPropertyId = 141;
-pub const XTK_PROP_STANDARD_COUNT: XtkStandardPropertyId = 142;
+pub const XTK_PROP_MIN_WIDTH: XtkStandardPropertyId = 142;
+pub const XTK_PROP_MAX_WIDTH: XtkStandardPropertyId = 143;
+pub const XTK_PROP_RESIZABLE: XtkStandardPropertyId = 144;
+pub const XTK_PROP_SORT_DIRECTION: XtkStandardPropertyId = 145;
+pub const XTK_PROP_IS_STICKY: XtkStandardPropertyId = 146;
+pub const XTK_PROP_CLOSED_DISPLAY_MODE: XtkStandardPropertyId = 147;
+pub const XTK_PROP_DEFAULT_LABEL_POSITION: XtkStandardPropertyId = 148;
+pub const XTK_PROP_OVERFLOW_BUTTON_VISIBILITY: XtkStandardPropertyId = 149;
+pub const XTK_PROP_DYNAMIC_OVERFLOW: XtkStandardPropertyId = 150;
+pub const XTK_PROP_SECONDARY: XtkStandardPropertyId = 151;
+pub const XTK_PROP_DYNAMIC_OVERFLOW_ORDER: XtkStandardPropertyId = 152;
+pub const XTK_PROP_LABEL_POSITION: XtkStandardPropertyId = 153;
+pub const XTK_PROP_ACCELERATOR_TEXT: XtkStandardPropertyId = 154;
+pub const XTK_PROP_STANDARD_COUNT: XtkStandardPropertyId = 155;
 pub type XtkStandardPropertyId = ::core::ffi::c_uint;
 pub const XTK_EVENT_INVALID: XtkStandardEventId = 0;
 pub const XTK_EVENT_INVOKE: XtkStandardEventId = 1;
@@ -250,7 +270,11 @@ pub const XTK_EVENT_VALUE_CHANGED: XtkStandardEventId = 17;
 pub const XTK_EVENT_DATE_SELECT: XtkStandardEventId = 18;
 pub const XTK_EVENT_REALIZE: XtkStandardEventId = 19;
 pub const XTK_EVENT_SCROLL: XtkStandardEventId = 20;
-pub const XTK_EVENT_STANDARD_COUNT: XtkStandardEventId = 21;
+pub const XTK_EVENT_RESIZE: XtkStandardEventId = 21;
+pub const XTK_EVENT_FIT: XtkStandardEventId = 22;
+pub const XTK_EVENT_REORDER: XtkStandardEventId = 23;
+pub const XTK_EVENT_OPEN: XtkStandardEventId = 24;
+pub const XTK_EVENT_STANDARD_COUNT: XtkStandardEventId = 25;
 pub type XtkStandardEventId = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -333,6 +357,25 @@ pub const XTK_SCROLLBAR_INDICATOR_NONE: XtkScrollBarIndicator = 0;
 pub const XTK_SCROLLBAR_INDICATOR_TOUCH: XtkScrollBarIndicator = 1;
 pub const XTK_SCROLLBAR_INDICATOR_MOUSE: XtkScrollBarIndicator = 2;
 pub type XtkScrollBarIndicator = ::core::ffi::c_uint;
+pub const XTK_SORT_NONE: XtkSortDirection = 0;
+pub const XTK_SORT_ASCENDING: XtkSortDirection = 1;
+pub const XTK_SORT_DESCENDING: XtkSortDirection = 2;
+pub type XtkSortDirection = ::core::ffi::c_uint;
+pub const XTK_APPBAR_COMPACT: XtkAppBarMode = 0;
+pub const XTK_APPBAR_MINIMAL: XtkAppBarMode = 1;
+pub const XTK_APPBAR_HIDDEN: XtkAppBarMode = 2;
+pub type XtkAppBarMode = ::core::ffi::c_uint;
+pub const XTK_LABEL_BOTTOM: XtkLabelPosition = 0;
+pub const XTK_LABEL_RIGHT: XtkLabelPosition = 1;
+pub const XTK_LABEL_COLLAPSED: XtkLabelPosition = 2;
+pub type XtkLabelPosition = ::core::ffi::c_uint;
+pub const XTK_ELEMENT_LABEL_DEFAULT: XtkElementLabel = 0;
+pub const XTK_ELEMENT_LABEL_COLLAPSED: XtkElementLabel = 1;
+pub type XtkElementLabel = ::core::ffi::c_uint;
+pub const XTK_OVERFLOW_BUTTON_AUTO: XtkOverflowButton = 0;
+pub const XTK_OVERFLOW_BUTTON_VISIBLE: XtkOverflowButton = 1;
+pub const XTK_OVERFLOW_BUTTON_COLLAPSED: XtkOverflowButton = 2;
+pub type XtkOverflowButton = ::core::ffi::c_uint;
 pub type XtkCtrl = u64;
 pub type XtkResource = u64;
 pub type XtkCtrlId = u32;
@@ -661,8 +704,9 @@ pub struct XtkEvent {
     pub change: XtkChangeStamp,
     pub payload: XtkEventPayload,
 }
-pub type XtkEventFn =
-    ::core::option::Option<unsafe extern "C" fn(arg: *mut ::core::ffi::c_void, event: *const XtkEvent) -> u32>;
+pub type XtkEventFn = ::core::option::Option<
+    unsafe extern "C" fn(arg: *mut ::core::ffi::c_void, event: *const XtkEvent) -> u32,
+>;
 pub type XtkSubId = u64;
 pub type XtkLocalId = u32;
 pub type XtkSubRef = u32;
@@ -872,7 +916,10 @@ pub struct XtkBatchResult {
     pub subscription_count: u32,
 }
 unsafe extern "C" {
-    pub fn xtk_batchresult_create(control_count: u32, subscription_count: u32) -> *mut XtkBatchResult;
+    pub fn xtk_batchresult_create(
+        control_count: u32,
+        subscription_count: u32,
+    ) -> *mut XtkBatchResult;
 }
 unsafe extern "C" {
     pub fn xtk_batchresult_destroy(result: *mut XtkBatchResult);
@@ -918,7 +965,11 @@ pub struct XtkValueView__bindgen_ty_1__bindgen_ty_2 {
 pub struct XtkHostVtable {
     pub abi: u32,
     pub preflight: ::core::option::Option<
-        unsafe extern "C" fn(host: *mut XtkHost, batch: *mut XtkBatch, diagnostic: *mut XtkBatchDiag) -> XtkBatchError,
+        unsafe extern "C" fn(
+            host: *mut XtkHost,
+            batch: *mut XtkBatch,
+            diagnostic: *mut XtkBatchDiag,
+        ) -> XtkBatchError,
     >,
     pub prepare: ::core::option::Option<
         unsafe extern "C" fn(
@@ -935,16 +986,28 @@ pub struct XtkHostVtable {
             diagnostic: *mut XtkBatchDiag,
         ) -> *mut XtkBatchResult,
     >,
-    pub abort: ::core::option::Option<unsafe extern "C" fn(host: *mut XtkHost, prepare: *mut XtkPrepare)>,
-    pub live: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> bool>,
+    pub abort:
+        ::core::option::Option<unsafe extern "C" fn(host: *mut XtkHost, prepare: *mut XtkPrepare)>,
+    pub live: ::core::option::Option<
+        unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> bool,
+    >,
     pub revision: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost) -> u64>,
     pub root: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost) -> XtkCtrl>,
-    pub type_: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrlId>,
-    pub parent: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl>,
-    pub first: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl>,
-    pub next: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl>,
-    pub desc:
-        ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, type_: XtkCtrlId) -> *const XtkCtrlDesc>,
+    pub type_: ::core::option::Option<
+        unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrlId,
+    >,
+    pub parent: ::core::option::Option<
+        unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl,
+    >,
+    pub first: ::core::option::Option<
+        unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl,
+    >,
+    pub next: ::core::option::Option<
+        unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl,
+    >,
+    pub desc: ::core::option::Option<
+        unsafe extern "C" fn(host: *const XtkHost, type_: XtkCtrlId) -> *const XtkCtrlDesc,
+    >,
     pub prop: ::core::option::Option<
         unsafe extern "C" fn(
             host: *const XtkHost,
@@ -955,15 +1018,25 @@ pub struct XtkHostVtable {
         ) -> bool,
     >,
     pub res_valid: ::core::option::Option<
-        unsafe extern "C" fn(host: *const XtkHost, resource: XtkResource, type_: XtkResourceTypeId) -> bool,
+        unsafe extern "C" fn(
+            host: *const XtkHost,
+            resource: XtkResource,
+            type_: XtkResourceTypeId,
+        ) -> bool,
     >,
     pub res_retain: ::core::option::Option<
-        unsafe extern "C" fn(host: *mut XtkHost, resource: XtkResource, type_: XtkResourceTypeId) -> bool,
+        unsafe extern "C" fn(
+            host: *mut XtkHost,
+            resource: XtkResource,
+            type_: XtkResourceTypeId,
+        ) -> bool,
     >,
     pub res_release: ::core::option::Option<
         unsafe extern "C" fn(host: *mut XtkHost, resource: XtkResource, type_: XtkResourceTypeId),
     >,
-    pub dispatch: ::core::option::Option<unsafe extern "C" fn(host: *mut XtkHost, event: *const XtkEvent) -> u32>,
+    pub dispatch: ::core::option::Option<
+        unsafe extern "C" fn(host: *mut XtkHost, event: *const XtkEvent) -> u32,
+    >,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1033,13 +1106,28 @@ unsafe extern "C" {
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn xtk_txn_insert(txn: *mut XtkTxn, parent: XtkNodeRef, child: XtkNodeRef, before: XtkNodeRef) -> bool;
+    pub fn xtk_txn_insert(
+        txn: *mut XtkTxn,
+        parent: XtkNodeRef,
+        child: XtkNodeRef,
+        before: XtkNodeRef,
+    ) -> bool;
 }
 unsafe extern "C" {
-    pub fn xtk_txn_move(txn: *mut XtkTxn, parent: XtkNodeRef, child: XtkNodeRef, before: XtkNodeRef) -> bool;
+    pub fn xtk_txn_move(
+        txn: *mut XtkTxn,
+        parent: XtkNodeRef,
+        child: XtkNodeRef,
+        before: XtkNodeRef,
+    ) -> bool;
 }
 unsafe extern "C" {
-    pub fn xtk_txn_reparent(txn: *mut XtkTxn, child: XtkNodeRef, new_parent: XtkNodeRef, before: XtkNodeRef) -> bool;
+    pub fn xtk_txn_reparent(
+        txn: *mut XtkTxn,
+        child: XtkNodeRef,
+        new_parent: XtkNodeRef,
+        before: XtkNodeRef,
+    ) -> bool;
 }
 unsafe extern "C" {
     pub fn xtk_txn_on(
@@ -1208,7 +1296,11 @@ unsafe extern "C" {
     pub fn xtk_catalog_standard(id: XtkCtrlId) -> bool;
 }
 unsafe extern "C" {
-    pub fn xtk_catalog_mirrors(control: XtkCtrlId, event: XtkEventId, out: *mut XtkPropertyId) -> u32;
+    pub fn xtk_catalog_mirrors(
+        control: XtkCtrlId,
+        event: XtkEventId,
+        out: *mut XtkPropertyId,
+    ) -> u32;
 }
 pub const FLUX_THEME_SYSTEM: FluxThemeMode = 0;
 pub const FLUX_THEME_LIGHT: FluxThemeMode = 1;
@@ -1232,8 +1324,12 @@ pub struct FluxAppCfg {
     pub height: ::core::ffi::c_int,
     pub theme: FluxThemeMode,
     pub backdrop: FluxBackdropType,
-    pub on_start: ::core::option::Option<unsafe extern "C" fn(app: *mut FluxApp, user: *mut ::core::ffi::c_void)>,
-    pub on_stop: ::core::option::Option<unsafe extern "C" fn(app: *mut FluxApp, user: *mut ::core::ffi::c_void)>,
+    pub on_start: ::core::option::Option<
+        unsafe extern "C" fn(app: *mut FluxApp, user: *mut ::core::ffi::c_void),
+    >,
+    pub on_stop: ::core::option::Option<
+        unsafe extern "C" fn(app: *mut FluxApp, user: *mut ::core::ffi::c_void),
+    >,
     pub user: *mut ::core::ffi::c_void,
 }
 unsafe extern "C" {
@@ -1267,4 +1363,264 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn flux_app_attachhost(app: *mut FluxApp) -> *mut XtkHost;
+}
+#[repr(C)]
+#[derive(Debug)]
+pub struct FluxControlModule {
+    _unused: [u8; 0],
+}
+unsafe extern "C" {
+    pub fn flux_controls_use(module: *const FluxControlModule);
+}
+unsafe extern "C" {
+    pub static flux_ctrl_container: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_text: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_button: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_toggle: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_checkbox: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_radio: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_switch: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_slider: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_textbox: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_scroll: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_image: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_progress: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_list: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_tab: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_card: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_divider: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_canvas: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_password: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_number: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_link: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_repeat: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_progressring: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_badge: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_tooltip: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_flyout: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_menufly: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_dropdown: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_split: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_combo: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_expander: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_exphead: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_expbody: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_infobar: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_dialog: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_dialogbody: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_menubar: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_menuitem: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_nav: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_navitem: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_tabs: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_tabitem: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_listitem: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_listbox: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_gridview: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_repeater: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_itemsview: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_flip: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_pips: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_suggest: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_togglesplit: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_radiogroup: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_rating: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_selector: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_selectoritem: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_breadcrumb: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_crumb: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_teachtip: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_tree: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_treeitem: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_refresh: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_avatar: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_pager: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_splitview: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_splitpane: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_splitbody: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_titlebar: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_scrollbar: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_looping: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_loopitem: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_datepicker: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_timepicker: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_pickerflyout: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_calendar: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_calday: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_colorpicker: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_colorspectrum: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_colorslider: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_colheader: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_colitem: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_commandbar: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_appbarbutton: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_appbartoggle: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_appbarsep: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_cmdmore: FluxControlModule;
 }
