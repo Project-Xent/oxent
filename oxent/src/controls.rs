@@ -92,6 +92,7 @@ pub enum ElementLabel {
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum FontWeight {
+    Inherit = sys::XTK_FONT_INHERIT as u32,
     Thin = sys::XTK_FONT_THIN as u32,
     ExtraLight = sys::XTK_FONT_EXTRA_LIGHT as u32,
     Light = sys::XTK_FONT_LIGHT as u32,
@@ -1400,6 +1401,30 @@ impl<'ui, A: App> Image<'ui, A> {
         self.0.prop(sys::XTK_PROP_IMAGE_STRETCH, Value::Enum(v as u32));
         self
     }
+    pub fn nl(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_NINE_GRID_LEFT, Value::F32(v));
+        self
+    }
+    pub fn nt(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_NINE_GRID_TOP, Value::F32(v));
+        self
+    }
+    pub fn nr(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_NINE_GRID_RIGHT, Value::F32(v));
+        self
+    }
+    pub fn nb(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_NINE_GRID_BOTTOM, Value::F32(v));
+        self
+    }
+    pub fn on_opened(self, msg: A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_IMAGE_OPENED, Handler::Value(msg));
+        self
+    }
+    pub fn on_failed(self, msg: A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_IMAGE_FAILED, Handler::Value(msg));
+        self
+    }
 }
 
 impl<'ui, A: App> From<Image<'ui, A>> for El<'ui, A> {
@@ -1604,6 +1629,10 @@ impl<'ui, A: App> List<'ui, A> {
     }
     pub fn first(self, v: i32) -> Self {
         self.0.prop(sys::XTK_PROP_REALIZED_FIRST, Value::I32(v));
+        self
+    }
+    pub fn rectsel(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_RECTANGLE_SELECTION, Value::Bool(v));
         self
     }
     pub fn on_select(self, f: fn(i32) -> A::Msg) -> Self {
@@ -4368,6 +4397,10 @@ impl<'ui, A: App> Listbox<'ui, A> {
         self.0.prop(sys::XTK_PROP_REALIZED_FIRST, Value::I32(v));
         self
     }
+    pub fn rectsel(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_RECTANGLE_SELECTION, Value::Bool(v));
+        self
+    }
     pub fn on_select(self, f: fn(i32) -> A::Msg) -> Self {
         self.0.on(sys::XTK_EVENT_SELECT, Handler::I32(f));
         self
@@ -4475,6 +4508,10 @@ impl<'ui, A: App> Gridview<'ui, A> {
         self.0.prop(sys::XTK_PROP_REALIZED_FIRST, Value::I32(v));
         self
     }
+    pub fn rectsel(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_RECTANGLE_SELECTION, Value::Bool(v));
+        self
+    }
     pub fn on_select(self, f: fn(i32) -> A::Msg) -> Self {
         self.0.on(sys::XTK_EVENT_SELECT, Handler::I32(f));
         self
@@ -4580,6 +4617,10 @@ impl<'ui, A: App> Repeater<'ui, A> {
     }
     pub fn first(self, v: i32) -> Self {
         self.0.prop(sys::XTK_PROP_REALIZED_FIRST, Value::I32(v));
+        self
+    }
+    pub fn rectsel(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_RECTANGLE_SELECTION, Value::Bool(v));
         self
     }
 }
@@ -7845,6 +7886,77 @@ impl<'ui, A: App> Appbarsep<'ui, A> {
 
 impl<'ui, A: App> From<Appbarsep<'ui, A>> for El<'ui, A> {
     fn from(b: Appbarsep<'ui, A>) -> Self {
+        b.0
+    }
+}
+
+pub struct Groupheader<'ui, A: App>(pub(crate) El<'ui, A>);
+
+impl<'ui, A: App> Ui<'ui, A> {
+    pub fn groupheader(&'ui self) -> Groupheader<'ui, A> {
+        Groupheader(self.el(sys::XTK_CTRL_GROUPHEADER, &raw const sys::flux_ctrl_groupheader))
+    }
+}
+
+impl<'ui, A: App> Groupheader<'ui, A> {
+    pub fn key(self, key: u64) -> Self {
+        self.0.key(key);
+        self
+    }
+    pub fn child(self, child: impl Into<El<'ui, A>>) -> Self {
+        self.0.child(child.into());
+        self
+    }
+    pub fn children<I: IntoIterator<Item = El<'ui, A>>>(self, kids: I) -> Self {
+        for kid in kids {
+            self.0.child(kid);
+        }
+        self
+    }
+    pub fn w(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_WIDTH, Value::F32(v));
+        self
+    }
+    pub fn h(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_HEIGHT, Value::F32(v));
+        self
+    }
+    pub fn grow(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_GROW, Value::F32(v));
+        self
+    }
+    pub fn shrink(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_SHRINK, Value::F32(v));
+        self
+    }
+    pub fn self_(self, v: FlexAlign) -> Self {
+        self.0.prop(sys::XTK_PROP_ALIGN_SELF, Value::Enum(v as u32));
+        self
+    }
+    pub fn ml(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_LEFT, Value::F32(v));
+        self
+    }
+    pub fn mt(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_TOP, Value::F32(v));
+        self
+    }
+    pub fn mr(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_RIGHT, Value::F32(v));
+        self
+    }
+    pub fn mb(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_BOTTOM, Value::F32(v));
+        self
+    }
+    pub fn tip(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+}
+
+impl<'ui, A: App> From<Groupheader<'ui, A>> for El<'ui, A> {
+    fn from(b: Groupheader<'ui, A>) -> Self {
         b.0
     }
 }

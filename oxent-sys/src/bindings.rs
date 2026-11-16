@@ -91,7 +91,8 @@ pub const XTK_CTRL_APPBARTOGGLE: XtkCtrlType = 82;
 pub const XTK_CTRL_APPBARSEP: XtkCtrlType = 83;
 pub const XTK_CTRL_CMDMORE: XtkCtrlType = 84;
 pub const XTK_CTRL_COLBUTTON: XtkCtrlType = 85;
-pub const XTK_CTRL_TYPE_COUNT: XtkCtrlType = 86;
+pub const XTK_CTRL_GROUPHEADER: XtkCtrlType = 86;
+pub const XTK_CTRL_TYPE_COUNT: XtkCtrlType = 87;
 pub type XtkCtrlType = ::core::ffi::c_uint;
 pub const XTK_PROP_INVALID: XtkStandardPropertyId = 0;
 pub const XTK_PROP_WIDTH: XtkStandardPropertyId = 1;
@@ -251,7 +252,13 @@ pub const XTK_PROP_ACCELERATOR_TEXT: XtkStandardPropertyId = 154;
 pub const XTK_PROP_DROP_OPERATION: XtkStandardPropertyId = 155;
 pub const XTK_PROP_DRAG_TEXT: XtkStandardPropertyId = 156;
 pub const XTK_PROP_DRAG_FILES: XtkStandardPropertyId = 157;
-pub const XTK_PROP_STANDARD_COUNT: XtkStandardPropertyId = 158;
+pub const XTK_PROP_GROUPS: XtkStandardPropertyId = 158;
+pub const XTK_PROP_RECTANGLE_SELECTION: XtkStandardPropertyId = 159;
+pub const XTK_PROP_NINE_GRID_LEFT: XtkStandardPropertyId = 160;
+pub const XTK_PROP_NINE_GRID_TOP: XtkStandardPropertyId = 161;
+pub const XTK_PROP_NINE_GRID_RIGHT: XtkStandardPropertyId = 162;
+pub const XTK_PROP_NINE_GRID_BOTTOM: XtkStandardPropertyId = 163;
+pub const XTK_PROP_STANDARD_COUNT: XtkStandardPropertyId = 164;
 pub type XtkStandardPropertyId = ::core::ffi::c_uint;
 pub const XTK_EVENT_INVALID: XtkStandardEventId = 0;
 pub const XTK_EVENT_INVOKE: XtkStandardEventId = 1;
@@ -282,13 +289,16 @@ pub const XTK_EVENT_DRAG_HOVER: XtkStandardEventId = 25;
 pub const XTK_EVENT_DROP_FILES: XtkStandardEventId = 26;
 pub const XTK_EVENT_DROP_TEXT: XtkStandardEventId = 27;
 pub const XTK_EVENT_DRAG_COMPLETED: XtkStandardEventId = 28;
-pub const XTK_EVENT_STANDARD_COUNT: XtkStandardEventId = 29;
+pub const XTK_EVENT_IMAGE_OPENED: XtkStandardEventId = 29;
+pub const XTK_EVENT_IMAGE_FAILED: XtkStandardEventId = 30;
+pub const XTK_EVENT_STANDARD_COUNT: XtkStandardEventId = 31;
 pub type XtkStandardEventId = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct XtkColor {
     pub rgba: u32,
 }
+pub const XTK_FONT_INHERIT: XtkFontWeight = 0;
 pub const XTK_FONT_THIN: XtkFontWeight = 100;
 pub const XTK_FONT_EXTRA_LIGHT: XtkFontWeight = 200;
 pub const XTK_FONT_LIGHT: XtkFontWeight = 300;
@@ -718,9 +728,8 @@ pub struct XtkEvent {
     pub change: XtkChangeStamp,
     pub payload: XtkEventPayload,
 }
-pub type XtkEventFn = ::core::option::Option<
-    unsafe extern "C" fn(arg: *mut ::core::ffi::c_void, event: *const XtkEvent) -> u32,
->;
+pub type XtkEventFn =
+    ::core::option::Option<unsafe extern "C" fn(arg: *mut ::core::ffi::c_void, event: *const XtkEvent) -> u32>;
 pub type XtkSubId = u64;
 pub type XtkLocalId = u32;
 pub type XtkSubRef = u32;
@@ -930,10 +939,7 @@ pub struct XtkBatchResult {
     pub subscription_count: u32,
 }
 unsafe extern "C" {
-    pub fn xtk_batchresult_create(
-        control_count: u32,
-        subscription_count: u32,
-    ) -> *mut XtkBatchResult;
+    pub fn xtk_batchresult_create(control_count: u32, subscription_count: u32) -> *mut XtkBatchResult;
 }
 unsafe extern "C" {
     pub fn xtk_batchresult_destroy(result: *mut XtkBatchResult);
@@ -979,11 +985,7 @@ pub struct XtkValueView__bindgen_ty_1__bindgen_ty_2 {
 pub struct XtkHostVtable {
     pub abi: u32,
     pub preflight: ::core::option::Option<
-        unsafe extern "C" fn(
-            host: *mut XtkHost,
-            batch: *mut XtkBatch,
-            diagnostic: *mut XtkBatchDiag,
-        ) -> XtkBatchError,
+        unsafe extern "C" fn(host: *mut XtkHost, batch: *mut XtkBatch, diagnostic: *mut XtkBatchDiag) -> XtkBatchError,
     >,
     pub prepare: ::core::option::Option<
         unsafe extern "C" fn(
@@ -1000,28 +1002,16 @@ pub struct XtkHostVtable {
             diagnostic: *mut XtkBatchDiag,
         ) -> *mut XtkBatchResult,
     >,
-    pub abort:
-        ::core::option::Option<unsafe extern "C" fn(host: *mut XtkHost, prepare: *mut XtkPrepare)>,
-    pub live: ::core::option::Option<
-        unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> bool,
-    >,
+    pub abort: ::core::option::Option<unsafe extern "C" fn(host: *mut XtkHost, prepare: *mut XtkPrepare)>,
+    pub live: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> bool>,
     pub revision: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost) -> u64>,
     pub root: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost) -> XtkCtrl>,
-    pub type_: ::core::option::Option<
-        unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrlId,
-    >,
-    pub parent: ::core::option::Option<
-        unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl,
-    >,
-    pub first: ::core::option::Option<
-        unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl,
-    >,
-    pub next: ::core::option::Option<
-        unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl,
-    >,
-    pub desc: ::core::option::Option<
-        unsafe extern "C" fn(host: *const XtkHost, type_: XtkCtrlId) -> *const XtkCtrlDesc,
-    >,
+    pub type_: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrlId>,
+    pub parent: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl>,
+    pub first: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl>,
+    pub next: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl>,
+    pub desc:
+        ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, type_: XtkCtrlId) -> *const XtkCtrlDesc>,
     pub prop: ::core::option::Option<
         unsafe extern "C" fn(
             host: *const XtkHost,
@@ -1032,25 +1022,15 @@ pub struct XtkHostVtable {
         ) -> bool,
     >,
     pub res_valid: ::core::option::Option<
-        unsafe extern "C" fn(
-            host: *const XtkHost,
-            resource: XtkResource,
-            type_: XtkResourceTypeId,
-        ) -> bool,
+        unsafe extern "C" fn(host: *const XtkHost, resource: XtkResource, type_: XtkResourceTypeId) -> bool,
     >,
     pub res_retain: ::core::option::Option<
-        unsafe extern "C" fn(
-            host: *mut XtkHost,
-            resource: XtkResource,
-            type_: XtkResourceTypeId,
-        ) -> bool,
+        unsafe extern "C" fn(host: *mut XtkHost, resource: XtkResource, type_: XtkResourceTypeId) -> bool,
     >,
     pub res_release: ::core::option::Option<
         unsafe extern "C" fn(host: *mut XtkHost, resource: XtkResource, type_: XtkResourceTypeId),
     >,
-    pub dispatch: ::core::option::Option<
-        unsafe extern "C" fn(host: *mut XtkHost, event: *const XtkEvent) -> u32,
-    >,
+    pub dispatch: ::core::option::Option<unsafe extern "C" fn(host: *mut XtkHost, event: *const XtkEvent) -> u32>,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1120,28 +1100,13 @@ unsafe extern "C" {
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn xtk_txn_insert(
-        txn: *mut XtkTxn,
-        parent: XtkNodeRef,
-        child: XtkNodeRef,
-        before: XtkNodeRef,
-    ) -> bool;
+    pub fn xtk_txn_insert(txn: *mut XtkTxn, parent: XtkNodeRef, child: XtkNodeRef, before: XtkNodeRef) -> bool;
 }
 unsafe extern "C" {
-    pub fn xtk_txn_move(
-        txn: *mut XtkTxn,
-        parent: XtkNodeRef,
-        child: XtkNodeRef,
-        before: XtkNodeRef,
-    ) -> bool;
+    pub fn xtk_txn_move(txn: *mut XtkTxn, parent: XtkNodeRef, child: XtkNodeRef, before: XtkNodeRef) -> bool;
 }
 unsafe extern "C" {
-    pub fn xtk_txn_reparent(
-        txn: *mut XtkTxn,
-        child: XtkNodeRef,
-        new_parent: XtkNodeRef,
-        before: XtkNodeRef,
-    ) -> bool;
+    pub fn xtk_txn_reparent(txn: *mut XtkTxn, child: XtkNodeRef, new_parent: XtkNodeRef, before: XtkNodeRef) -> bool;
 }
 unsafe extern "C" {
     pub fn xtk_txn_on(
@@ -1310,11 +1275,7 @@ unsafe extern "C" {
     pub fn xtk_catalog_standard(id: XtkCtrlId) -> bool;
 }
 unsafe extern "C" {
-    pub fn xtk_catalog_mirrors(
-        control: XtkCtrlId,
-        event: XtkEventId,
-        out: *mut XtkPropertyId,
-    ) -> u32;
+    pub fn xtk_catalog_mirrors(control: XtkCtrlId, event: XtkEventId, out: *mut XtkPropertyId) -> u32;
 }
 pub const FLUX_THEME_SYSTEM: FluxThemeMode = 0;
 pub const FLUX_THEME_LIGHT: FluxThemeMode = 1;
@@ -1338,12 +1299,8 @@ pub struct FluxAppCfg {
     pub height: ::core::ffi::c_int,
     pub theme: FluxThemeMode,
     pub backdrop: FluxBackdropType,
-    pub on_start: ::core::option::Option<
-        unsafe extern "C" fn(app: *mut FluxApp, user: *mut ::core::ffi::c_void),
-    >,
-    pub on_stop: ::core::option::Option<
-        unsafe extern "C" fn(app: *mut FluxApp, user: *mut ::core::ffi::c_void),
-    >,
+    pub on_start: ::core::option::Option<unsafe extern "C" fn(app: *mut FluxApp, user: *mut ::core::ffi::c_void)>,
+    pub on_stop: ::core::option::Option<unsafe extern "C" fn(app: *mut FluxApp, user: *mut ::core::ffi::c_void)>,
     pub user: *mut ::core::ffi::c_void,
 }
 unsafe extern "C" {
@@ -1640,4 +1597,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub static flux_ctrl_colbutton: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_groupheader: FluxControlModule;
 }
