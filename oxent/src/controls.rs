@@ -75,6 +75,15 @@ pub enum Clock {
 
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum DropOperation {
+    None = sys::XTK_DROP_NONE as u32,
+    Copy = sys::XTK_DROP_COPY as u32,
+    Move = sys::XTK_DROP_MOVE as u32,
+    Link = sys::XTK_DROP_LINK as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum ElementLabel {
     Default = sys::XTK_ELEMENT_LABEL_DEFAULT as u32,
     Collapsed = sys::XTK_ELEMENT_LABEL_COLLAPSED as u32,
@@ -399,6 +408,34 @@ impl<'ui, A: App> Container<'ui, A> {
     }
     pub fn wrap(self, v: FlexWrap) -> Self {
         self.0.prop(sys::XTK_PROP_WRAP, Value::Enum(v as u32));
+        self
+    }
+    pub fn drop(self, v: DropOperation) -> Self {
+        self.0.prop(sys::XTK_PROP_DROP_OPERATION, Value::Enum(v as u32));
+        self
+    }
+    pub fn dragtext(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_DRAG_TEXT, Value::Str(v.into()));
+        self
+    }
+    pub fn dragfiles(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_DRAG_FILES, Value::Str(v.into()));
+        self
+    }
+    pub fn on_draghover(self, f: fn(bool) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DRAG_HOVER, Handler::Bool(f));
+        self
+    }
+    pub fn on_dropfiles(self, f: fn(String) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DROP_FILES, Handler::Str(f));
+        self
+    }
+    pub fn on_droptext(self, f: fn(String) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DROP_TEXT, Handler::Str(f));
+        self
+    }
+    pub fn on_dragcompleted(self, f: fn(i32) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DRAG_COMPLETED, Handler::I32(f));
         self
     }
 }
@@ -1765,6 +1802,34 @@ impl<'ui, A: App> Card<'ui, A> {
     }
     pub fn wrap(self, v: FlexWrap) -> Self {
         self.0.prop(sys::XTK_PROP_WRAP, Value::Enum(v as u32));
+        self
+    }
+    pub fn drop(self, v: DropOperation) -> Self {
+        self.0.prop(sys::XTK_PROP_DROP_OPERATION, Value::Enum(v as u32));
+        self
+    }
+    pub fn dragtext(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_DRAG_TEXT, Value::Str(v.into()));
+        self
+    }
+    pub fn dragfiles(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_DRAG_FILES, Value::Str(v.into()));
+        self
+    }
+    pub fn on_draghover(self, f: fn(bool) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DRAG_HOVER, Handler::Bool(f));
+        self
+    }
+    pub fn on_dropfiles(self, f: fn(String) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DROP_FILES, Handler::Str(f));
+        self
+    }
+    pub fn on_droptext(self, f: fn(String) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DROP_TEXT, Handler::Str(f));
+        self
+    }
+    pub fn on_dragcompleted(self, f: fn(i32) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DRAG_COMPLETED, Handler::I32(f));
         self
     }
 }
@@ -3230,6 +3295,34 @@ impl<'ui, A: App> Expbody<'ui, A> {
         self.0.prop(sys::XTK_PROP_WRAP, Value::Enum(v as u32));
         self
     }
+    pub fn drop(self, v: DropOperation) -> Self {
+        self.0.prop(sys::XTK_PROP_DROP_OPERATION, Value::Enum(v as u32));
+        self
+    }
+    pub fn dragtext(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_DRAG_TEXT, Value::Str(v.into()));
+        self
+    }
+    pub fn dragfiles(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_DRAG_FILES, Value::Str(v.into()));
+        self
+    }
+    pub fn on_draghover(self, f: fn(bool) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DRAG_HOVER, Handler::Bool(f));
+        self
+    }
+    pub fn on_dropfiles(self, f: fn(String) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DROP_FILES, Handler::Str(f));
+        self
+    }
+    pub fn on_droptext(self, f: fn(String) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DROP_TEXT, Handler::Str(f));
+        self
+    }
+    pub fn on_dragcompleted(self, f: fn(i32) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DRAG_COMPLETED, Handler::I32(f));
+        self
+    }
 }
 
 impl<'ui, A: App> From<Expbody<'ui, A>> for El<'ui, A> {
@@ -3537,6 +3630,34 @@ impl<'ui, A: App> Dialogbody<'ui, A> {
     }
     pub fn wrap(self, v: FlexWrap) -> Self {
         self.0.prop(sys::XTK_PROP_WRAP, Value::Enum(v as u32));
+        self
+    }
+    pub fn drop(self, v: DropOperation) -> Self {
+        self.0.prop(sys::XTK_PROP_DROP_OPERATION, Value::Enum(v as u32));
+        self
+    }
+    pub fn dragtext(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_DRAG_TEXT, Value::Str(v.into()));
+        self
+    }
+    pub fn dragfiles(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_DRAG_FILES, Value::Str(v.into()));
+        self
+    }
+    pub fn on_draghover(self, f: fn(bool) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DRAG_HOVER, Handler::Bool(f));
+        self
+    }
+    pub fn on_dropfiles(self, f: fn(String) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DROP_FILES, Handler::Str(f));
+        self
+    }
+    pub fn on_droptext(self, f: fn(String) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DROP_TEXT, Handler::Str(f));
+        self
+    }
+    pub fn on_dragcompleted(self, f: fn(i32) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DRAG_COMPLETED, Handler::I32(f));
         self
     }
 }
@@ -6334,6 +6455,34 @@ impl<'ui, A: App> Splitpane<'ui, A> {
         self.0.prop(sys::XTK_PROP_WRAP, Value::Enum(v as u32));
         self
     }
+    pub fn drop(self, v: DropOperation) -> Self {
+        self.0.prop(sys::XTK_PROP_DROP_OPERATION, Value::Enum(v as u32));
+        self
+    }
+    pub fn dragtext(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_DRAG_TEXT, Value::Str(v.into()));
+        self
+    }
+    pub fn dragfiles(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_DRAG_FILES, Value::Str(v.into()));
+        self
+    }
+    pub fn on_draghover(self, f: fn(bool) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DRAG_HOVER, Handler::Bool(f));
+        self
+    }
+    pub fn on_dropfiles(self, f: fn(String) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DROP_FILES, Handler::Str(f));
+        self
+    }
+    pub fn on_droptext(self, f: fn(String) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DROP_TEXT, Handler::Str(f));
+        self
+    }
+    pub fn on_dragcompleted(self, f: fn(i32) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DRAG_COMPLETED, Handler::I32(f));
+        self
+    }
 }
 
 impl<'ui, A: App> From<Splitpane<'ui, A>> for El<'ui, A> {
@@ -6451,6 +6600,34 @@ impl<'ui, A: App> Splitbody<'ui, A> {
     }
     pub fn wrap(self, v: FlexWrap) -> Self {
         self.0.prop(sys::XTK_PROP_WRAP, Value::Enum(v as u32));
+        self
+    }
+    pub fn drop(self, v: DropOperation) -> Self {
+        self.0.prop(sys::XTK_PROP_DROP_OPERATION, Value::Enum(v as u32));
+        self
+    }
+    pub fn dragtext(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_DRAG_TEXT, Value::Str(v.into()));
+        self
+    }
+    pub fn dragfiles(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_DRAG_FILES, Value::Str(v.into()));
+        self
+    }
+    pub fn on_draghover(self, f: fn(bool) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DRAG_HOVER, Handler::Bool(f));
+        self
+    }
+    pub fn on_dropfiles(self, f: fn(String) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DROP_FILES, Handler::Str(f));
+        self
+    }
+    pub fn on_droptext(self, f: fn(String) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DROP_TEXT, Handler::Str(f));
+        self
+    }
+    pub fn on_dragcompleted(self, f: fn(i32) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_DRAG_COMPLETED, Handler::I32(f));
         self
     }
 }
