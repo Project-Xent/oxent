@@ -11,7 +11,7 @@ categories.workspace = true
 include = ["src/**", "examples/**", "LICENSE"]
 
 [dependencies]
-oxent-sys = { path = "../oxent-sys", version = "=0.3.2" }
+oxent-sys = { path = "../oxent-sys", version = "=0.3.3" }
 
 [package.metadata.docs.rs]
 default-target = "x86_64-pc-windows-gnullvm"
