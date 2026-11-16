@@ -277,6 +277,7 @@ pub enum TextTrim {
     CharEllipsis = sys::XTK_TRIM_CHAR_ELLIPSIS as u32,
     Word = sys::XTK_TRIM_WORD as u32,
     WordEllipsis = sys::XTK_TRIM_WORD_ELLIPSIS as u32,
+    PathEllipsis = sys::XTK_TRIM_PATH_ELLIPSIS as u32,
 }
 
 #[repr(u32)]

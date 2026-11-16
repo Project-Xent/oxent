@@ -90,7 +90,8 @@ pub const XTK_CTRL_APPBARBUTTON: XtkCtrlType = 81;
 pub const XTK_CTRL_APPBARTOGGLE: XtkCtrlType = 82;
 pub const XTK_CTRL_APPBARSEP: XtkCtrlType = 83;
 pub const XTK_CTRL_CMDMORE: XtkCtrlType = 84;
-pub const XTK_CTRL_TYPE_COUNT: XtkCtrlType = 85;
+pub const XTK_CTRL_COLBUTTON: XtkCtrlType = 85;
+pub const XTK_CTRL_TYPE_COUNT: XtkCtrlType = 86;
 pub type XtkCtrlType = ::core::ffi::c_uint;
 pub const XTK_PROP_INVALID: XtkStandardPropertyId = 0;
 pub const XTK_PROP_WIDTH: XtkStandardPropertyId = 1;
@@ -301,6 +302,7 @@ pub const XTK_TRIM_CHAR: XtkTextTrim = 1;
 pub const XTK_TRIM_CHAR_ELLIPSIS: XtkTextTrim = 2;
 pub const XTK_TRIM_WORD: XtkTextTrim = 3;
 pub const XTK_TRIM_WORD_ELLIPSIS: XtkTextTrim = 4;
+pub const XTK_TRIM_PATH_ELLIPSIS: XtkTextTrim = 5;
 pub type XtkTextTrim = ::core::ffi::c_uint;
 pub const XTK_BUTTON_STANDARD: XtkButtonStyle = 0;
 pub const XTK_BUTTON_SUBTLE: XtkButtonStyle = 1;
@@ -1623,4 +1625,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub static flux_ctrl_cmdmore: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_colbutton: FluxControlModule;
 }
