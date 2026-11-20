@@ -258,7 +258,8 @@ pub const XTK_PROP_NINE_GRID_LEFT: XtkStandardPropertyId = 160;
 pub const XTK_PROP_NINE_GRID_TOP: XtkStandardPropertyId = 161;
 pub const XTK_PROP_NINE_GRID_RIGHT: XtkStandardPropertyId = 162;
 pub const XTK_PROP_NINE_GRID_BOTTOM: XtkStandardPropertyId = 163;
-pub const XTK_PROP_STANDARD_COUNT: XtkStandardPropertyId = 164;
+pub const XTK_PROP_FLOW_DIRECTION: XtkStandardPropertyId = 164;
+pub const XTK_PROP_STANDARD_COUNT: XtkStandardPropertyId = 165;
 pub type XtkStandardPropertyId = ::core::ffi::c_uint;
 pub const XTK_EVENT_INVALID: XtkStandardEventId = 0;
 pub const XTK_EVENT_INVOKE: XtkStandardEventId = 1;
@@ -515,6 +516,10 @@ pub type XentFlexAlign = ::core::ffi::c_uint;
 pub const XENT_FLEX_NO_WRAP: XentFlexWrap = 0;
 pub const XENT_FLEX_WRAP: XentFlexWrap = 1;
 pub type XentFlexWrap = ::core::ffi::c_uint;
+pub const XENT_DIRECTION_INHERIT: XentDirection = 0;
+pub const XENT_DIRECTION_LTR: XentDirection = 1;
+pub const XENT_DIRECTION_RTL: XentDirection = 2;
+pub type XentDirection = ::core::ffi::c_uint;
 pub const XTK_CLOCK_SYSTEM: XtkClock = 0;
 pub const XTK_CLOCK_12H: XtkClock = 1;
 pub const XTK_CLOCK_24H: XtkClock = 2;
@@ -648,6 +653,7 @@ pub const XTK_EVENT_PREVENT_DEFAULT: XtkEventDisposition = 2;
 pub const XTK_EVENT_STOP_PROPAGATION: XtkEventDisposition = 4;
 pub const XTK_EVENT_STOP_IMMEDIATE: XtkEventDisposition = 8;
 pub type XtkEventDisposition = ::core::ffi::c_uint;
+#[doc = " `string` and `query.text` are valid only for the duration of the callback."]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct XtkEventPayload {
@@ -949,6 +955,7 @@ unsafe extern "C" {
 pub struct XtkPrepare {
     _unused: [u8; 0],
 }
+#[doc = " `string` and `bytes` point at the host's stored copy, until that property changes or the host is destroyed."]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct XtkValueView {
@@ -1024,9 +1031,11 @@ pub struct XtkHostVtable {
     pub res_valid: ::core::option::Option<
         unsafe extern "C" fn(host: *const XtkHost, resource: XtkResource, type_: XtkResourceTypeId) -> bool,
     >,
+    #[doc = " Batch commit copies the id and does not call this."]
     pub res_retain: ::core::option::Option<
         unsafe extern "C" fn(host: *mut XtkHost, resource: XtkResource, type_: XtkResourceTypeId) -> bool,
     >,
+    #[doc = " Batch commit copies the id and does not call this."]
     pub res_release: ::core::option::Option<
         unsafe extern "C" fn(host: *mut XtkHost, resource: XtkResource, type_: XtkResourceTypeId),
     >,
@@ -1316,6 +1325,7 @@ unsafe extern "C" {
     pub fn flux_app_redraw(app: *mut FluxApp);
 }
 unsafe extern "C" {
+    #[doc = " Borrows `ctx` until this callback is replaced or the app is destroyed."]
     pub fn flux_app_onframe(
         app: *mut FluxApp,
         cb: ::core::option::Option<unsafe extern "C" fn(ctx: *mut ::core::ffi::c_void)>,
@@ -1323,6 +1333,7 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
+    #[doc = " Borrows `ctx` until `fn` runs on the window thread."]
     pub fn flux_app_invoke(
         app: *mut FluxApp,
         fn_: ::core::option::Option<unsafe extern "C" fn(ctx: *mut ::core::ffi::c_void)>,

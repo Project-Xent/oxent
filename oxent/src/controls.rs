@@ -5,6 +5,14 @@ use oxent_sys as sys;
 
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum Direction {
+    Inherit = sys::XENT_DIRECTION_INHERIT as u32,
+    Ltr = sys::XENT_DIRECTION_LTR as u32,
+    Rtl = sys::XENT_DIRECTION_RTL as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum FlexAlign {
     Auto = sys::XENT_FLEX_ALIGN_AUTO as u32,
     Start = sys::XENT_FLEX_ALIGN_START as u32,
@@ -137,6 +145,16 @@ pub enum ListSelMode {
     None = sys::XTK_LIST_SELECT_NONE as u32,
     Multiple = sys::XTK_LIST_SELECT_MULTIPLE as u32,
     Extended = sys::XTK_LIST_SELECT_EXTENDED as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum NavKind {
+    Item = sys::XTK_NAV_ITEM as u32,
+    Header = sys::XTK_NAV_HEADER as u32,
+    Separator = sys::XTK_NAV_SEPARATOR as u32,
+    Footer = sys::XTK_NAV_FOOTER as u32,
+    Child = sys::XTK_NAV_CHILD as u32,
 }
 
 #[repr(u32)]
@@ -421,6 +439,10 @@ impl<'ui, A: App> Container<'ui, A> {
     }
     pub fn dragfiles(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_DRAG_FILES, Value::Str(v.into()));
+        self
+    }
+    pub fn flow(self, v: Direction) -> Self {
+        self.0.prop(sys::XTK_PROP_FLOW_DIRECTION, Value::Enum(v as u32));
         self
     }
     pub fn on_draghover(self, f: fn(bool) -> A::Msg) -> Self {
@@ -1843,6 +1865,10 @@ impl<'ui, A: App> Card<'ui, A> {
     }
     pub fn dragfiles(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_DRAG_FILES, Value::Str(v.into()));
+        self
+    }
+    pub fn flow(self, v: Direction) -> Self {
+        self.0.prop(sys::XTK_PROP_FLOW_DIRECTION, Value::Enum(v as u32));
         self
     }
     pub fn on_draghover(self, f: fn(bool) -> A::Msg) -> Self {
@@ -3336,6 +3362,10 @@ impl<'ui, A: App> Expbody<'ui, A> {
         self.0.prop(sys::XTK_PROP_DRAG_FILES, Value::Str(v.into()));
         self
     }
+    pub fn flow(self, v: Direction) -> Self {
+        self.0.prop(sys::XTK_PROP_FLOW_DIRECTION, Value::Enum(v as u32));
+        self
+    }
     pub fn on_draghover(self, f: fn(bool) -> A::Msg) -> Self {
         self.0.on(sys::XTK_EVENT_DRAG_HOVER, Handler::Bool(f));
         self
@@ -3671,6 +3701,10 @@ impl<'ui, A: App> Dialogbody<'ui, A> {
     }
     pub fn dragfiles(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_DRAG_FILES, Value::Str(v.into()));
+        self
+    }
+    pub fn flow(self, v: Direction) -> Self {
+        self.0.prop(sys::XTK_PROP_FLOW_DIRECTION, Value::Enum(v as u32));
         self
     }
     pub fn on_draghover(self, f: fn(bool) -> A::Msg) -> Self {
@@ -6508,6 +6542,10 @@ impl<'ui, A: App> Splitpane<'ui, A> {
         self.0.prop(sys::XTK_PROP_DRAG_FILES, Value::Str(v.into()));
         self
     }
+    pub fn flow(self, v: Direction) -> Self {
+        self.0.prop(sys::XTK_PROP_FLOW_DIRECTION, Value::Enum(v as u32));
+        self
+    }
     pub fn on_draghover(self, f: fn(bool) -> A::Msg) -> Self {
         self.0.on(sys::XTK_EVENT_DRAG_HOVER, Handler::Bool(f));
         self
@@ -6653,6 +6691,10 @@ impl<'ui, A: App> Splitbody<'ui, A> {
     }
     pub fn dragfiles(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_DRAG_FILES, Value::Str(v.into()));
+        self
+    }
+    pub fn flow(self, v: Direction) -> Self {
+        self.0.prop(sys::XTK_PROP_FLOW_DIRECTION, Value::Enum(v as u32));
         self
     }
     pub fn on_draghover(self, f: fn(bool) -> A::Msg) -> Self {
