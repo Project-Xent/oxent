@@ -96,7 +96,9 @@ pub const XTK_CTRL_COMBOITEM: XtkCtrlType = 87;
 pub const XTK_CTRL_SUGGESTITEM: XtkCtrlType = 88;
 pub const XTK_CTRL_MENUPRESENTER: XtkCtrlType = 89;
 pub const XTK_CTRL_MENUROW: XtkCtrlType = 90;
-pub const XTK_CTRL_TYPE_COUNT: XtkCtrlType = 91;
+pub const XTK_CTRL_CMDOVF: XtkCtrlType = 91;
+pub const XTK_CTRL_CMDOVFROW: XtkCtrlType = 92;
+pub const XTK_CTRL_TYPE_COUNT: XtkCtrlType = 93;
 pub type XtkCtrlType = ::core::ffi::c_uint;
 pub const XTK_PROP_INVALID: XtkStandardPropertyId = 0;
 pub const XTK_PROP_WIDTH: XtkStandardPropertyId = 1;
@@ -1627,4 +1629,10 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub static flux_ctrl_menurow: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_cmdovf: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_cmdovfrow: FluxControlModule;
 }
