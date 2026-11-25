@@ -870,6 +870,161 @@ impl<'ui, A: App> From<Text<'ui, A>> for El<'ui, A> {
     }
 }
 
+/// Decorative Fluent icon (Segoe Fluent Icons / MDL2). Not interactive.
+///
+/// Stock XTK catalog does not allow `ICON` on `TEXT`, so this sets the glyph as
+/// `TEXT` content; fluxent detects the PUA codepoint and paints with the icon font.
+pub struct Icon<'ui, A: App>(pub(crate) El<'ui, A>);
+
+impl<'ui, A: App> Ui<'ui, A> {
+    pub fn icon(&'ui self) -> Icon<'ui, A> {
+        Icon(self.el(sys::XTK_CTRL_TEXT, &raw const sys::flux_ctrl_text))
+    }
+}
+
+fn fluent_icon_char(name: &str) -> Option<char> {
+    // Keep in sync with fluxent `src/render/flux_icon.h`.
+    Some(match name {
+        "Accept" | "Check" => '\u{E8FB}',
+        "Add" | "Plus" => '\u{E710}',
+        "Back" => '\u{E72B}',
+        "Camera" => '\u{E722}',
+        "Cancel" | "Close" => '\u{E711}',
+        "CheckMark" => '\u{E73E}',
+        "ChevronDown" => '\u{E70D}',
+        "ChevronLeft" => '\u{E76B}',
+        "ChevronRight" => '\u{E76C}',
+        "ChevronUp" => '\u{E70E}',
+        "Copy" => '\u{E8C8}',
+        "Cut" => '\u{E8C6}',
+        "Delete" | "Trash" => '\u{E74D}',
+        "Download" => '\u{E896}',
+        "Edit" => '\u{E70F}',
+        "Emoji" => '\u{E76E}',
+        "Favorite" | "Star" | "Like" => '\u{E734}',
+        "Filter" => '\u{E71C}',
+        "Flag" => '\u{E7C1}',
+        "Folder" => '\u{E8B7}',
+        "Font" => '\u{E8D2}',
+        "Forward" => '\u{E72A}',
+        "Gear" | "Settings" => '\u{E713}',
+        "GlobalNavButton" => '\u{E700}',
+        "Heart" => '\u{EB51}',
+        "Help" => '\u{E897}',
+        "Hide" => '\u{ED1A}',
+        "Home" => '\u{E80F}',
+        "Import" => '\u{E8B5}',
+        "Info" => '\u{E946}',
+        "Keyboard" => '\u{E765}',
+        "Link" => '\u{E71B}',
+        "List" => '\u{EA37}',
+        "Location" => '\u{E81D}',
+        "Lock" => '\u{E72E}',
+        "Mail" => '\u{E715}',
+        "Mic" => '\u{E720}',
+        "Minus" => '\u{E738}',
+        "More" => '\u{E712}',
+        "MoveToFolder" => '\u{E8DE}',
+        "Mute" => '\u{E74F}',
+        "NewFolder" => '\u{E8F4}',
+        "Next" => '\u{E893}',
+        "OpenFile" => '\u{E8E5}',
+        "Paste" => '\u{E77F}',
+        "Pause" => '\u{E769}',
+        "People" => '\u{E716}',
+        "Phone" => '\u{E717}',
+        "Pin" => '\u{E718}',
+        "Play" => '\u{E768}',
+        "Previous" => '\u{E892}',
+        "Print" => '\u{E749}',
+        "RedEye" => '\u{E7B3}',
+        "Redo" => '\u{E7A6}',
+        "Refresh" => '\u{E72C}',
+        "Rename" => '\u{E8AC}',
+        "Repair" => '\u{E90F}',
+        "Save" => '\u{E74E}',
+        "Search" => '\u{E721}',
+        "Send" => '\u{E724}',
+        "Share" => '\u{E72D}',
+        "Sort" => '\u{E8CB}',
+        "Sound" | "Volume" => '\u{E767}',
+        "Stop" => '\u{E71A}',
+        "Sync" => '\u{E895}',
+        "Undo" => '\u{E7A7}',
+        "Unlock" => '\u{E785}',
+        "Upload" => '\u{E898}',
+        "Video" => '\u{E714}',
+        "View" => '\u{E890}',
+        "Warning" => '\u{E7BA}',
+        "ZoomIn" => '\u{E8A3}',
+        "ZoomOut" => '\u{E71F}',
+        _ => return None,
+    })
+}
+
+impl<'ui, A: App> Icon<'ui, A> {
+    pub fn key(self, key: u64) -> Self {
+        self.0.key(key);
+        self
+    }
+    pub fn name(self, v: &str) -> Self {
+        if let Some(ch) = fluent_icon_char(v) {
+            self.0.prop(sys::XTK_PROP_TEXT, Value::Str(ch.to_string()));
+        }
+        self
+    }
+    pub fn w(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_WIDTH, Value::F32(v));
+        self
+    }
+    pub fn h(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_HEIGHT, Value::F32(v));
+        self
+    }
+    pub fn grow(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_GROW, Value::F32(v));
+        self
+    }
+    pub fn self_(self, v: FlexAlign) -> Self {
+        self.0.prop(sys::XTK_PROP_ALIGN_SELF, Value::Enum(v as u32));
+        self
+    }
+    pub fn ml(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_LEFT, Value::F32(v));
+        self
+    }
+    pub fn mt(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_TOP, Value::F32(v));
+        self
+    }
+    pub fn mr(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_RIGHT, Value::F32(v));
+        self
+    }
+    pub fn mb(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_BOTTOM, Value::F32(v));
+        self
+    }
+    pub fn tip(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn fontsize(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_FONT_SIZE, Value::F32(v));
+        self
+    }
+    pub fn fg(self, v: u32) -> Self {
+        self.0.prop(sys::XTK_PROP_FOREGROUND, Value::Color(v));
+        self
+    }
+}
+
+impl<'ui, A: App> From<Icon<'ui, A>> for El<'ui, A> {
+    fn from(b: Icon<'ui, A>) -> Self {
+        b.0
+    }
+}
+
 pub struct Button<'ui, A: App>(pub(crate) El<'ui, A>);
 
 impl<'ui, A: App> Ui<'ui, A> {

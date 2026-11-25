@@ -184,16 +184,33 @@ pub enum Theme {
     Dark,
 }
 
+/// DWM system backdrop (`DWMWA_SYSTEMBACKDROP_TYPE`).
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum Backdrop {
+    None,
+    #[default]
+    Mica,
+    MicaAlt,
+    Acrylic,
+}
+
 pub struct Window<'a> {
     pub title: &'a str,
     pub width: i32,
     pub height: i32,
     pub theme: Theme,
+    pub backdrop: Backdrop,
 }
 
 impl Default for Window<'_> {
     fn default() -> Self {
-        Window { title: "oxent", width: 960, height: 640, theme: Theme::System }
+        Window {
+            title: "oxent",
+            width: 960,
+            height: 640,
+            theme: Theme::System,
+            backdrop: Backdrop::default(),
+        }
     }
 }
 
