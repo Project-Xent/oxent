@@ -42,6 +42,14 @@ pub enum FlexWrap {
 
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum AccessView {
+    Content = sys::XTK_ACCESS_VIEW_CONTENT as u32,
+    Control = sys::XTK_ACCESS_VIEW_CONTROL as u32,
+    Raw = sys::XTK_ACCESS_VIEW_RAW as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum AppBarMode {
     Compact = sys::XTK_APPBAR_COMPACT as u32,
     Minimal = sys::XTK_APPBAR_MINIMAL as u32,
@@ -83,6 +91,15 @@ pub enum Clock {
 
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum DialogButton {
+    None = sys::XTK_DIALOG_BUTTON_NONE as u32,
+    Primary = sys::XTK_DIALOG_BUTTON_PRIMARY as u32,
+    Secondary = sys::XTK_DIALOG_BUTTON_SECONDARY as u32,
+    Close = sys::XTK_DIALOG_BUTTON_CLOSE as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum DropOperation {
     None = sys::XTK_DROP_NONE as u32,
     Copy = sys::XTK_DROP_COPY as u32,
@@ -114,6 +131,21 @@ pub enum FontWeight {
 
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum HeadingLevel {
+    None = sys::XTK_HEADING_NONE as u32,
+    Level1 = sys::XTK_HEADING_LEVEL1 as u32,
+    Level2 = sys::XTK_HEADING_LEVEL2 as u32,
+    Level3 = sys::XTK_HEADING_LEVEL3 as u32,
+    Level4 = sys::XTK_HEADING_LEVEL4 as u32,
+    Level5 = sys::XTK_HEADING_LEVEL5 as u32,
+    Level6 = sys::XTK_HEADING_LEVEL6 as u32,
+    Level7 = sys::XTK_HEADING_LEVEL7 as u32,
+    Level8 = sys::XTK_HEADING_LEVEL8 as u32,
+    Level9 = sys::XTK_HEADING_LEVEL9 as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum ImageStretch {
     None = sys::XTK_IMAGE_NONE as u32,
     Fill = sys::XTK_IMAGE_FILL as u32,
@@ -140,11 +172,38 @@ pub enum LabelPosition {
 
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum Landmark {
+    None = sys::XTK_LANDMARK_NONE as u32,
+    Custom = sys::XTK_LANDMARK_CUSTOM as u32,
+    Form = sys::XTK_LANDMARK_FORM as u32,
+    Main = sys::XTK_LANDMARK_MAIN as u32,
+    Navigation = sys::XTK_LANDMARK_NAVIGATION as u32,
+    Search = sys::XTK_LANDMARK_SEARCH as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum ListSelMode {
     Single = sys::XTK_LIST_SELECT_SINGLE as u32,
     None = sys::XTK_LIST_SELECT_NONE as u32,
     Multiple = sys::XTK_LIST_SELECT_MULTIPLE as u32,
     Extended = sys::XTK_LIST_SELECT_EXTENDED as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum LiveSetting {
+    Off = sys::XTK_LIVE_OFF as u32,
+    Polite = sys::XTK_LIVE_POLITE as u32,
+    Assertive = sys::XTK_LIVE_ASSERTIVE as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum NavBackButton {
+    Auto = sys::XTK_NAV_BACK_AUTO as u32,
+    Visible = sys::XTK_NAV_BACK_VISIBLE as u32,
+    Collapsed = sys::XTK_NAV_BACK_COLLAPSED as u32,
 }
 
 #[repr(u32)]
@@ -155,6 +214,29 @@ pub enum NavKind {
     Separator = sys::XTK_NAV_SEPARATOR as u32,
     Footer = sys::XTK_NAV_FOOTER as u32,
     Child = sys::XTK_NAV_CHILD as u32,
+    FooterHeader = sys::XTK_NAV_FOOTER_HEADER as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum NavPaneMode {
+    Auto = sys::XTK_NAV_PANE_AUTO as u32,
+    Left = sys::XTK_NAV_PANE_LEFT as u32,
+    Top = sys::XTK_NAV_PANE_TOP as u32,
+    LeftCompact = sys::XTK_NAV_PANE_LEFT_COMPACT as u32,
+    LeftMinimal = sys::XTK_NAV_PANE_LEFT_MINIMAL as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum NavSlot {
+    Content = sys::XTK_NAV_SLOT_CONTENT as u32,
+    Header = sys::XTK_NAV_SLOT_HEADER as u32,
+    Custom = sys::XTK_NAV_SLOT_CUSTOM as u32,
+    Footer = sys::XTK_NAV_SLOT_FOOTER as u32,
+    Search = sys::XTK_NAV_SLOT_SEARCH as u32,
+    PageHeader = sys::XTK_NAV_SLOT_PAGE_HEADER as u32,
+    ContentOverlay = sys::XTK_NAV_SLOT_CONTENT_OVERLAY as u32,
 }
 
 #[repr(u32)]
@@ -168,18 +250,18 @@ pub enum OverflowButton {
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum PagerButtonVis {
-    Auto = sys::XTK_PAGER_BUTTON_AUTO as u32,
-    Always = sys::XTK_PAGER_BUTTON_ALWAYS as u32,
-    HiddenEdge = sys::XTK_PAGER_BUTTON_HIDDEN_EDGE as u32,
-    None = sys::XTK_PAGER_BUTTON_NONE as u32,
+    Visible = sys::XTK_PAGER_BUTTON_VISIBLE as u32,
+    HiddenOnEdge = sys::XTK_PAGER_BUTTON_HIDDEN_ON_EDGE as u32,
+    Hidden = sys::XTK_PAGER_BUTTON_HIDDEN as u32,
 }
 
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum PagerDisplayMode {
     Auto = sys::XTK_PAGER_DISPLAY_AUTO as u32,
-    NumberPanel = sys::XTK_PAGER_DISPLAY_NUMBER_PANEL as u32,
-    NumberText = sys::XTK_PAGER_DISPLAY_NUMBER_TEXT as u32,
+    ComboBox = sys::XTK_PAGER_DISPLAY_COMBO_BOX as u32,
+    NumberBox = sys::XTK_PAGER_DISPLAY_NUMBER_BOX as u32,
+    ButtonPanel = sys::XTK_PAGER_DISPLAY_BUTTON_PANEL as u32,
 }
 
 #[repr(u32)]
@@ -381,6 +463,114 @@ impl<'ui, A: App> Container<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn dir(self, v: StackDirection) -> Self {
         self.0.prop(sys::XTK_PROP_ORIENTATION, Value::Enum(v as u32));
         self
@@ -532,6 +722,114 @@ impl<'ui, A: App> Text<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn fontsize(self, v: f32) -> Self {
         self.0.prop(sys::XTK_PROP_FONT_SIZE, Value::F32(v));
         self
@@ -635,6 +933,114 @@ impl<'ui, A: App> Button<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -722,6 +1128,114 @@ impl<'ui, A: App> Toggle<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -803,6 +1317,114 @@ impl<'ui, A: App> Checkbox<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn enabled(self, v: bool) -> Self {
@@ -900,6 +1522,114 @@ impl<'ui, A: App> Radio<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -983,6 +1713,114 @@ impl<'ui, A: App> Switch<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -1060,6 +1898,114 @@ impl<'ui, A: App> Slider<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn enabled(self, v: bool) -> Self {
@@ -1197,6 +2143,114 @@ impl<'ui, A: App> Textbox<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -1286,6 +2340,114 @@ impl<'ui, A: App> Scroll<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn dir(self, v: StackDirection) -> Self {
@@ -1415,6 +2577,114 @@ impl<'ui, A: App> Image<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn src(self, v: u64) -> Self {
         self.0.prop(sys::XTK_PROP_IMAGE_SOURCE, Value::Resource(v));
         self
@@ -1512,6 +2782,114 @@ impl<'ui, A: App> Progress<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn min(self, v: f32) -> Self {
@@ -1619,6 +2997,114 @@ impl<'ui, A: App> List<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn enabled(self, v: bool) -> Self {
@@ -1736,6 +3222,114 @@ impl<'ui, A: App> Tab<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
 }
 
 impl<'ui, A: App> From<Tab<'ui, A>> for El<'ui, A> {
@@ -1805,6 +3399,114 @@ impl<'ui, A: App> Card<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn dir(self, v: StackDirection) -> Self {
@@ -1958,6 +3660,114 @@ impl<'ui, A: App> Divider<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
 }
 
 impl<'ui, A: App> From<Divider<'ui, A>> for El<'ui, A> {
@@ -2029,6 +3839,114 @@ impl<'ui, A: App> Canvas<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
 }
 
 impl<'ui, A: App> From<Canvas<'ui, A>> for El<'ui, A> {
@@ -2098,6 +4016,114 @@ impl<'ui, A: App> Password<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn enabled(self, v: bool) -> Self {
@@ -2177,6 +4203,114 @@ impl<'ui, A: App> Number<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn enabled(self, v: bool) -> Self {
@@ -2278,6 +4412,114 @@ impl<'ui, A: App> Link<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -2361,6 +4603,114 @@ impl<'ui, A: App> Repeat<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -2442,6 +4792,114 @@ impl<'ui, A: App> Progressring<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn min(self, v: f32) -> Self {
@@ -2539,6 +4997,114 @@ impl<'ui, A: App> Badge<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn badgemode(self, v: BadgeMode) -> Self {
         self.0.prop(sys::XTK_PROP_BADGE_MODE, Value::Enum(v as u32));
         self
@@ -2622,6 +5188,114 @@ impl<'ui, A: App> Tooltip<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn open(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_OPEN, Value::Bool(v));
         self
@@ -2699,6 +5373,114 @@ impl<'ui, A: App> Flyout<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn open(self, v: bool) -> Self {
@@ -2780,6 +5562,114 @@ impl<'ui, A: App> Menufly<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn open(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_OPEN, Value::Bool(v));
         self
@@ -2857,6 +5747,114 @@ impl<'ui, A: App> Dropdown<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn enabled(self, v: bool) -> Self {
@@ -2946,6 +5944,114 @@ impl<'ui, A: App> Split<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -3027,6 +6133,114 @@ impl<'ui, A: App> Combo<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn enabled(self, v: bool) -> Self {
@@ -3132,6 +6346,114 @@ impl<'ui, A: App> Expander<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn expanded(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_EXPANDED, Value::Bool(v));
         self
@@ -3213,6 +6535,114 @@ impl<'ui, A: App> Exphead<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn icon(self, v: &str) -> Self {
@@ -3300,6 +6730,114 @@ impl<'ui, A: App> Expbody<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn dir(self, v: StackDirection) -> Self {
@@ -3457,6 +6995,114 @@ impl<'ui, A: App> Infobar<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn severity(self, v: InfoBarSeverity) -> Self {
         self.0.prop(sys::XTK_PROP_SEVERITY, Value::Enum(v as u32));
         self
@@ -3540,6 +7186,114 @@ impl<'ui, A: App> Dialog<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn text(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TEXT, Value::Str(v.into()));
         self
@@ -3558,6 +7312,10 @@ impl<'ui, A: App> Dialog<'ui, A> {
     }
     pub fn contenth(self, v: f32) -> Self {
         self.0.prop(sys::XTK_PROP_CONTENT_HEIGHT, Value::F32(v));
+        self
+    }
+    pub fn default_button(self, v: DialogButton) -> Self {
+        self.0.prop(sys::XTK_PROP_DIALOG_DEFAULT_BUTTON, Value::Enum(v as u32));
         self
     }
     pub fn open(self, v: bool) -> Self {
@@ -3641,6 +7399,114 @@ impl<'ui, A: App> Dialogbody<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn dir(self, v: StackDirection) -> Self {
@@ -3794,6 +7660,114 @@ impl<'ui, A: App> Menubar<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
 }
 
 impl<'ui, A: App> From<Menubar<'ui, A>> for El<'ui, A> {
@@ -3863,6 +7837,114 @@ impl<'ui, A: App> Menuitem<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn icon(self, v: &str) -> Self {
@@ -3952,6 +8034,114 @@ impl<'ui, A: App> Nav<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -3960,12 +8150,40 @@ impl<'ui, A: App> Nav<'ui, A> {
         self.0.prop(sys::XTK_PROP_SELECTED_INDEX, Value::I32(v));
         self
     }
+    pub fn display(self, v: NavPaneMode) -> Self {
+        self.0.prop(sys::XTK_PROP_DISPLAY_MODE, Value::Enum(v as u32));
+        self
+    }
+    pub fn settings_visible(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_SETTINGS_VISIBLE, Value::Bool(v));
+        self
+    }
+    pub fn pane_title(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_PANE_TITLE, Value::Str(v.into()));
+        self
+    }
+    pub fn always_show_header(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_ALWAYS_SHOW_HEADER, Value::Bool(v));
+        self
+    }
+    pub fn back_button(self, v: NavBackButton) -> Self {
+        self.0.prop(sys::XTK_PROP_NAV_BACK_BUTTON, Value::Enum(v as u32));
+        self
+    }
+    pub fn back_enabled(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_NAV_BACK_ENABLED, Value::Bool(v));
+        self
+    }
     pub fn on_select(self, f: fn(i32) -> A::Msg) -> Self {
         self.0.on(sys::XTK_EVENT_SELECT, Handler::I32(f));
         self
     }
     pub fn on_invoke(self, msg: A::Msg) -> Self {
         self.0.on(sys::XTK_EVENT_INVOKE, Handler::Value(msg));
+        self
+    }
+    pub fn on_backrequested(self, msg: A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_BACK_REQUESTED, Handler::Value(msg));
         self
     }
 }
@@ -4037,6 +8255,114 @@ impl<'ui, A: App> Navitem<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn icon(self, v: &str) -> Self {
@@ -4124,6 +8450,114 @@ impl<'ui, A: App> Tabs<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn enabled(self, v: bool) -> Self {
@@ -4221,6 +8655,114 @@ impl<'ui, A: App> Tabitem<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn icon(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_ICON, Value::Str(v.into()));
         self
@@ -4312,6 +8854,114 @@ impl<'ui, A: App> Listitem<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn icon(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_ICON, Value::Str(v.into()));
         self
@@ -4397,6 +9047,114 @@ impl<'ui, A: App> Listbox<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn enabled(self, v: bool) -> Self {
@@ -4510,6 +9268,114 @@ impl<'ui, A: App> Gridview<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -4621,6 +9487,114 @@ impl<'ui, A: App> Repeater<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -4722,6 +9696,114 @@ impl<'ui, A: App> Itemsview<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn enabled(self, v: bool) -> Self {
@@ -4835,6 +9917,114 @@ impl<'ui, A: App> Flip<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn sel(self, v: i32) -> Self {
         self.0.prop(sys::XTK_PROP_SELECTED_INDEX, Value::I32(v));
         self
@@ -4916,6 +10106,114 @@ impl<'ui, A: App> Pips<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn sel(self, v: i32) -> Self {
@@ -5017,6 +10315,114 @@ impl<'ui, A: App> Suggest<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -5112,6 +10518,114 @@ impl<'ui, A: App> Togglesplit<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -5193,6 +10707,114 @@ impl<'ui, A: App> Radiogroup<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn enabled(self, v: bool) -> Self {
@@ -5288,6 +10910,114 @@ impl<'ui, A: App> Rating<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn value(self, v: f64) -> Self {
@@ -5389,6 +11119,114 @@ impl<'ui, A: App> Selector<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -5480,6 +11318,114 @@ impl<'ui, A: App> Selectoritem<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn icon(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_ICON, Value::Str(v.into()));
         self
@@ -5565,6 +11511,114 @@ impl<'ui, A: App> Breadcrumb<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn enabled(self, v: bool) -> Self {
@@ -5658,6 +11712,114 @@ impl<'ui, A: App> Crumb<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn icon(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_ICON, Value::Str(v.into()));
         self
@@ -5747,6 +11909,114 @@ impl<'ui, A: App> Teachtip<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn text(self, v: &str) -> Self {
@@ -5872,6 +12142,114 @@ impl<'ui, A: App> Tree<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -5971,6 +12349,114 @@ impl<'ui, A: App> Treeitem<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn icon(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_ICON, Value::Str(v.into()));
         self
@@ -6060,6 +12546,114 @@ impl<'ui, A: App> Refresh<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn direction(self, v: PullDirection) -> Self {
@@ -6153,6 +12747,114 @@ impl<'ui, A: App> Avatar<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn text(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TEXT, Value::Str(v.into()));
         self
@@ -6171,6 +12873,14 @@ impl<'ui, A: App> Avatar<'ui, A> {
     }
     pub fn badgevalue(self, v: i32) -> Self {
         self.0.prop(sys::XTK_PROP_BADGE_VALUE, Value::I32(v));
+        self
+    }
+    pub fn badgeimage(self, v: u64) -> Self {
+        self.0.prop(sys::XTK_PROP_BADGE_IMAGE_SOURCE, Value::Resource(v));
+        self
+    }
+    pub fn badgetext(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_BADGE_TEXT, Value::Str(v.into()));
         self
     }
     pub fn group(self, v: bool) -> Self {
@@ -6248,6 +12958,114 @@ impl<'ui, A: App> Pager<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn sel(self, v: i32) -> Self {
         self.0.prop(sys::XTK_PROP_SELECTED_INDEX, Value::I32(v));
         self
@@ -6282,6 +13100,10 @@ impl<'ui, A: App> Pager<'ui, A> {
     }
     pub fn suffix(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_SUFFIX, Value::Str(v.into()));
+        self
+    }
+    pub fn hideends(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_HIDE_ENDS, Value::Bool(v));
         self
     }
     pub fn on_select(self, f: fn(i32) -> A::Msg) -> Self {
@@ -6363,6 +13185,114 @@ impl<'ui, A: App> Splitview<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn dir(self, v: StackDirection) -> Self {
         self.0.prop(sys::XTK_PROP_ORIENTATION, Value::Enum(v as u32));
         self
@@ -6409,6 +13339,10 @@ impl<'ui, A: App> Splitview<'ui, A> {
     }
     pub fn compactlen(self, v: f32) -> Self {
         self.0.prop(sys::XTK_PROP_COMPACT_PANE_LENGTH, Value::F32(v));
+        self
+    }
+    pub fn on_open(self, f: fn(bool) -> A::Msg) -> Self {
+        self.0.on(sys::XTK_EVENT_OPEN, Handler::Bool(f));
         self
     }
 }
@@ -6480,6 +13414,114 @@ impl<'ui, A: App> Splitpane<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn dir(self, v: StackDirection) -> Self {
@@ -6633,6 +13675,114 @@ impl<'ui, A: App> Splitbody<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn dir(self, v: StackDirection) -> Self {
         self.0.prop(sys::XTK_PROP_ORIENTATION, Value::Enum(v as u32));
         self
@@ -6784,6 +13934,114 @@ impl<'ui, A: App> Titlebar<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn text(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TEXT, Value::Str(v.into()));
         self
@@ -6885,6 +14143,114 @@ impl<'ui, A: App> Scrollbar<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn enabled(self, v: bool) -> Self {
@@ -6994,6 +14360,114 @@ impl<'ui, A: App> Looping<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -7093,6 +14567,114 @@ impl<'ui, A: App> Datepicker<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -7184,6 +14766,114 @@ impl<'ui, A: App> Timepicker<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -7273,6 +14963,114 @@ impl<'ui, A: App> Calendar<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn enabled(self, v: bool) -> Self {
@@ -7370,6 +15168,114 @@ impl<'ui, A: App> Colorpicker<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -7465,6 +15371,114 @@ impl<'ui, A: App> Colheader<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
 }
 
 impl<'ui, A: App> From<Colheader<'ui, A>> for El<'ui, A> {
@@ -7514,6 +15528,114 @@ impl<'ui, A: App> Colitem<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn align(self, v: TextAlign) -> Self {
@@ -7615,6 +15737,114 @@ impl<'ui, A: App> Commandbar<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn enabled(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_ENABLED, Value::Bool(v));
         self
@@ -7714,6 +15944,114 @@ impl<'ui, A: App> Appbarbutton<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn text(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TEXT, Value::Str(v.into()));
         self
@@ -7811,6 +16149,114 @@ impl<'ui, A: App> Appbartoggle<'ui, A> {
     }
     pub fn tip(self, v: &str) -> Self {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
         self
     }
     pub fn text(self, v: &str) -> Self {
@@ -7916,6 +16362,114 @@ impl<'ui, A: App> Appbarsep<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
     pub fn secondary(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_SECONDARY, Value::Bool(v));
         self
@@ -7995,10 +16549,173 @@ impl<'ui, A: App> Groupheader<'ui, A> {
         self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
         self
     }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
 }
 
 impl<'ui, A: App> From<Groupheader<'ui, A>> for El<'ui, A> {
     fn from(b: Groupheader<'ui, A>) -> Self {
+        b.0
+    }
+}
+
+pub struct Navslot<'ui, A: App>(pub(crate) El<'ui, A>);
+
+impl<'ui, A: App> Ui<'ui, A> {
+    pub fn navslot(&'ui self) -> Navslot<'ui, A> {
+        Navslot(self.el(sys::XTK_CTRL_NAVSLOT, &raw const sys::flux_ctrl_navslot))
+    }
+}
+
+impl<'ui, A: App> Navslot<'ui, A> {
+    pub fn key(self, key: u64) -> Self {
+        self.0.key(key);
+        self
+    }
+    pub fn child(self, child: impl Into<El<'ui, A>>) -> Self {
+        self.0.child(child.into());
+        self
+    }
+    pub fn children<I: IntoIterator<Item = El<'ui, A>>>(self, kids: I) -> Self {
+        for kid in kids {
+            self.0.child(kid);
+        }
+        self
+    }
+    pub fn w(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_WIDTH, Value::F32(v));
+        self
+    }
+    pub fn h(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_HEIGHT, Value::F32(v));
+        self
+    }
+    pub fn grow(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_GROW, Value::F32(v));
+        self
+    }
+    pub fn shrink(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_SHRINK, Value::F32(v));
+        self
+    }
+    pub fn self_(self, v: FlexAlign) -> Self {
+        self.0.prop(sys::XTK_PROP_ALIGN_SELF, Value::Enum(v as u32));
+        self
+    }
+    pub fn slot(self, v: NavSlot) -> Self {
+        self.0.prop(sys::XTK_PROP_NAV_SLOT, Value::Enum(v as u32));
+        self
+    }
+}
+
+impl<'ui, A: App> From<Navslot<'ui, A>> for El<'ui, A> {
+    fn from(b: Navslot<'ui, A>) -> Self {
         b.0
     }
 }

@@ -92,7 +92,14 @@ pub const XTK_CTRL_APPBARSEP: XtkCtrlType = 83;
 pub const XTK_CTRL_CMDMORE: XtkCtrlType = 84;
 pub const XTK_CTRL_COLBUTTON: XtkCtrlType = 85;
 pub const XTK_CTRL_GROUPHEADER: XtkCtrlType = 86;
-pub const XTK_CTRL_TYPE_COUNT: XtkCtrlType = 87;
+pub const XTK_CTRL_COMBOITEM: XtkCtrlType = 87;
+pub const XTK_CTRL_SUGGESTITEM: XtkCtrlType = 88;
+pub const XTK_CTRL_MENUPRESENTER: XtkCtrlType = 89;
+pub const XTK_CTRL_MENUROW: XtkCtrlType = 90;
+pub const XTK_CTRL_CMDOVF: XtkCtrlType = 91;
+pub const XTK_CTRL_CMDOVFROW: XtkCtrlType = 92;
+pub const XTK_CTRL_NAVSLOT: XtkCtrlType = 93;
+pub const XTK_CTRL_TYPE_COUNT: XtkCtrlType = 94;
 pub type XtkCtrlType = ::core::ffi::c_uint;
 pub const XTK_PROP_INVALID: XtkStandardPropertyId = 0;
 pub const XTK_PROP_WIDTH: XtkStandardPropertyId = 1;
@@ -259,7 +266,44 @@ pub const XTK_PROP_NINE_GRID_TOP: XtkStandardPropertyId = 161;
 pub const XTK_PROP_NINE_GRID_RIGHT: XtkStandardPropertyId = 162;
 pub const XTK_PROP_NINE_GRID_BOTTOM: XtkStandardPropertyId = 163;
 pub const XTK_PROP_FLOW_DIRECTION: XtkStandardPropertyId = 164;
-pub const XTK_PROP_STANDARD_COUNT: XtkStandardPropertyId = 165;
+pub const XTK_PROP_A11Y_NAME: XtkStandardPropertyId = 165;
+pub const XTK_PROP_A11Y_ID: XtkStandardPropertyId = 166;
+pub const XTK_PROP_A11Y_HELP: XtkStandardPropertyId = 167;
+pub const XTK_PROP_A11Y_DESCRIPTION: XtkStandardPropertyId = 168;
+pub const XTK_PROP_A11Y_ITEM_STATUS: XtkStandardPropertyId = 169;
+pub const XTK_PROP_A11Y_ITEM_TYPE: XtkStandardPropertyId = 170;
+pub const XTK_PROP_A11Y_CONTROL_TYPE: XtkStandardPropertyId = 171;
+pub const XTK_PROP_A11Y_ACCELERATOR: XtkStandardPropertyId = 172;
+pub const XTK_PROP_A11Y_ACCESS_KEY: XtkStandardPropertyId = 173;
+pub const XTK_PROP_A11Y_LANDMARK: XtkStandardPropertyId = 174;
+pub const XTK_PROP_A11Y_LANDMARK_NAME: XtkStandardPropertyId = 175;
+pub const XTK_PROP_A11Y_LIVE: XtkStandardPropertyId = 176;
+pub const XTK_PROP_A11Y_HEADING: XtkStandardPropertyId = 177;
+pub const XTK_PROP_A11Y_VIEW: XtkStandardPropertyId = 178;
+pub const XTK_PROP_A11Y_REQUIRED: XtkStandardPropertyId = 179;
+pub const XTK_PROP_A11Y_DATA_VALID: XtkStandardPropertyId = 180;
+pub const XTK_PROP_A11Y_PERIPHERAL: XtkStandardPropertyId = 181;
+pub const XTK_PROP_A11Y_DIALOG: XtkStandardPropertyId = 182;
+pub const XTK_PROP_A11Y_POSITION: XtkStandardPropertyId = 183;
+pub const XTK_PROP_A11Y_SIZE: XtkStandardPropertyId = 184;
+pub const XTK_PROP_A11Y_LEVEL: XtkStandardPropertyId = 185;
+pub const XTK_PROP_A11Y_CULTURE: XtkStandardPropertyId = 186;
+pub const XTK_PROP_A11Y_LABELED_BY: XtkStandardPropertyId = 187;
+pub const XTK_PROP_A11Y_DESCRIBED_BY: XtkStandardPropertyId = 188;
+pub const XTK_PROP_A11Y_FLOWS_TO: XtkStandardPropertyId = 189;
+pub const XTK_PROP_A11Y_FLOWS_FROM: XtkStandardPropertyId = 190;
+pub const XTK_PROP_A11Y_CONTROLLED: XtkStandardPropertyId = 191;
+pub const XTK_PROP_HIDE_ENDS: XtkStandardPropertyId = 192;
+pub const XTK_PROP_DIALOG_DEFAULT_BUTTON: XtkStandardPropertyId = 193;
+pub const XTK_PROP_BADGE_IMAGE_SOURCE: XtkStandardPropertyId = 194;
+pub const XTK_PROP_BADGE_TEXT: XtkStandardPropertyId = 195;
+pub const XTK_PROP_SETTINGS_VISIBLE: XtkStandardPropertyId = 196;
+pub const XTK_PROP_PANE_TITLE: XtkStandardPropertyId = 197;
+pub const XTK_PROP_NAV_SLOT: XtkStandardPropertyId = 198;
+pub const XTK_PROP_ALWAYS_SHOW_HEADER: XtkStandardPropertyId = 199;
+pub const XTK_PROP_NAV_BACK_BUTTON: XtkStandardPropertyId = 200;
+pub const XTK_PROP_NAV_BACK_ENABLED: XtkStandardPropertyId = 201;
+pub const XTK_PROP_STANDARD_COUNT: XtkStandardPropertyId = 202;
 pub type XtkStandardPropertyId = ::core::ffi::c_uint;
 pub const XTK_EVENT_INVALID: XtkStandardEventId = 0;
 pub const XTK_EVENT_INVOKE: XtkStandardEventId = 1;
@@ -290,9 +334,10 @@ pub const XTK_EVENT_DRAG_HOVER: XtkStandardEventId = 25;
 pub const XTK_EVENT_DROP_FILES: XtkStandardEventId = 26;
 pub const XTK_EVENT_DROP_TEXT: XtkStandardEventId = 27;
 pub const XTK_EVENT_DRAG_COMPLETED: XtkStandardEventId = 28;
-pub const XTK_EVENT_IMAGE_OPENED: XtkStandardEventId = 29;
-pub const XTK_EVENT_IMAGE_FAILED: XtkStandardEventId = 30;
-pub const XTK_EVENT_STANDARD_COUNT: XtkStandardEventId = 31;
+pub const XTK_EVENT_BACK_REQUESTED: XtkStandardEventId = 29;
+pub const XTK_EVENT_IMAGE_OPENED: XtkStandardEventId = 30;
+pub const XTK_EVENT_IMAGE_FAILED: XtkStandardEventId = 31;
+pub const XTK_EVENT_STANDARD_COUNT: XtkStandardEventId = 32;
 pub type XtkStandardEventId = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -354,6 +399,32 @@ pub const XTK_BADGE_DOT: XtkBadgeMode = 0;
 pub const XTK_BADGE_NUMBER: XtkBadgeMode = 1;
 pub const XTK_BADGE_ICON: XtkBadgeMode = 2;
 pub type XtkBadgeMode = ::core::ffi::c_uint;
+pub const XTK_LANDMARK_NONE: XtkLandmark = 0;
+pub const XTK_LANDMARK_CUSTOM: XtkLandmark = 1;
+pub const XTK_LANDMARK_FORM: XtkLandmark = 2;
+pub const XTK_LANDMARK_MAIN: XtkLandmark = 3;
+pub const XTK_LANDMARK_NAVIGATION: XtkLandmark = 4;
+pub const XTK_LANDMARK_SEARCH: XtkLandmark = 5;
+pub type XtkLandmark = ::core::ffi::c_uint;
+pub const XTK_LIVE_OFF: XtkLiveSetting = 0;
+pub const XTK_LIVE_POLITE: XtkLiveSetting = 1;
+pub const XTK_LIVE_ASSERTIVE: XtkLiveSetting = 2;
+pub type XtkLiveSetting = ::core::ffi::c_uint;
+pub const XTK_HEADING_NONE: XtkHeadingLevel = 0;
+pub const XTK_HEADING_LEVEL1: XtkHeadingLevel = 1;
+pub const XTK_HEADING_LEVEL2: XtkHeadingLevel = 2;
+pub const XTK_HEADING_LEVEL3: XtkHeadingLevel = 3;
+pub const XTK_HEADING_LEVEL4: XtkHeadingLevel = 4;
+pub const XTK_HEADING_LEVEL5: XtkHeadingLevel = 5;
+pub const XTK_HEADING_LEVEL6: XtkHeadingLevel = 6;
+pub const XTK_HEADING_LEVEL7: XtkHeadingLevel = 7;
+pub const XTK_HEADING_LEVEL8: XtkHeadingLevel = 8;
+pub const XTK_HEADING_LEVEL9: XtkHeadingLevel = 9;
+pub type XtkHeadingLevel = ::core::ffi::c_uint;
+pub const XTK_ACCESS_VIEW_CONTENT: XtkAccessView = 0;
+pub const XTK_ACCESS_VIEW_CONTROL: XtkAccessView = 1;
+pub const XTK_ACCESS_VIEW_RAW: XtkAccessView = 2;
+pub type XtkAccessView = ::core::ffi::c_uint;
 pub const XTK_INFOBAR_INFORMATIONAL: XtkInfoBarSeverity = 0;
 pub const XTK_INFOBAR_SUCCESS: XtkInfoBarSeverity = 1;
 pub const XTK_INFOBAR_WARNING: XtkInfoBarSeverity = 2;
@@ -394,6 +465,11 @@ pub const XTK_LABEL_BOTTOM: XtkLabelPosition = 0;
 pub const XTK_LABEL_RIGHT: XtkLabelPosition = 1;
 pub const XTK_LABEL_COLLAPSED: XtkLabelPosition = 2;
 pub type XtkLabelPosition = ::core::ffi::c_uint;
+pub const XTK_DIALOG_BUTTON_NONE: XtkDialogButton = 0;
+pub const XTK_DIALOG_BUTTON_PRIMARY: XtkDialogButton = 1;
+pub const XTK_DIALOG_BUTTON_SECONDARY: XtkDialogButton = 2;
+pub const XTK_DIALOG_BUTTON_CLOSE: XtkDialogButton = 3;
+pub type XtkDialogButton = ::core::ffi::c_uint;
 pub const XTK_ELEMENT_LABEL_DEFAULT: XtkElementLabel = 0;
 pub const XTK_ELEMENT_LABEL_COLLAPSED: XtkElementLabel = 1;
 pub type XtkElementLabel = ::core::ffi::c_uint;
@@ -548,13 +624,13 @@ pub const XTK_PIPS_NAV_VISIBLE: XtkPipsNavVis = 1;
 pub const XTK_PIPS_NAV_ON_HOVER: XtkPipsNavVis = 2;
 pub type XtkPipsNavVis = ::core::ffi::c_uint;
 pub const XTK_PAGER_DISPLAY_AUTO: XtkPagerDisplayMode = 0;
-pub const XTK_PAGER_DISPLAY_NUMBER_PANEL: XtkPagerDisplayMode = 1;
-pub const XTK_PAGER_DISPLAY_NUMBER_TEXT: XtkPagerDisplayMode = 2;
+pub const XTK_PAGER_DISPLAY_COMBO_BOX: XtkPagerDisplayMode = 1;
+pub const XTK_PAGER_DISPLAY_NUMBER_BOX: XtkPagerDisplayMode = 2;
+pub const XTK_PAGER_DISPLAY_BUTTON_PANEL: XtkPagerDisplayMode = 3;
 pub type XtkPagerDisplayMode = ::core::ffi::c_uint;
-pub const XTK_PAGER_BUTTON_AUTO: XtkPagerButtonVis = 0;
-pub const XTK_PAGER_BUTTON_ALWAYS: XtkPagerButtonVis = 1;
-pub const XTK_PAGER_BUTTON_HIDDEN_EDGE: XtkPagerButtonVis = 2;
-pub const XTK_PAGER_BUTTON_NONE: XtkPagerButtonVis = 3;
+pub const XTK_PAGER_BUTTON_VISIBLE: XtkPagerButtonVis = 0;
+pub const XTK_PAGER_BUTTON_HIDDEN_ON_EDGE: XtkPagerButtonVis = 1;
+pub const XTK_PAGER_BUTTON_HIDDEN: XtkPagerButtonVis = 2;
 pub type XtkPagerButtonVis = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -568,6 +644,7 @@ pub const XTK_NAV_HEADER: XtkNavKind = 1;
 pub const XTK_NAV_SEPARATOR: XtkNavKind = 2;
 pub const XTK_NAV_FOOTER: XtkNavKind = 3;
 pub const XTK_NAV_CHILD: XtkNavKind = 4;
+pub const XTK_NAV_FOOTER_HEADER: XtkNavKind = 5;
 pub type XtkNavKind = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -608,15 +685,46 @@ pub struct XtkTreeDesc {
     pub expand: XtkMsg,
     pub select: XtkMsg,
 }
+pub const XTK_NAV_PANE_AUTO: XtkNavPaneMode = 0;
+pub const XTK_NAV_PANE_LEFT: XtkNavPaneMode = 1;
+pub const XTK_NAV_PANE_TOP: XtkNavPaneMode = 2;
+pub const XTK_NAV_PANE_LEFT_COMPACT: XtkNavPaneMode = 3;
+pub const XTK_NAV_PANE_LEFT_MINIMAL: XtkNavPaneMode = 4;
+pub type XtkNavPaneMode = ::core::ffi::c_uint;
+pub const XTK_NAV_SETTINGS: _bindgen_ty_1 = -2;
+pub type _bindgen_ty_1 = ::core::ffi::c_int;
+pub const XTK_NAV_SLOT_CONTENT: XtkNavSlot = 0;
+pub const XTK_NAV_SLOT_HEADER: XtkNavSlot = 1;
+pub const XTK_NAV_SLOT_CUSTOM: XtkNavSlot = 2;
+pub const XTK_NAV_SLOT_FOOTER: XtkNavSlot = 3;
+pub const XTK_NAV_SLOT_SEARCH: XtkNavSlot = 4;
+pub const XTK_NAV_SLOT_PAGE_HEADER: XtkNavSlot = 8;
+pub const XTK_NAV_SLOT_CONTENT_OVERLAY: XtkNavSlot = 9;
+pub type XtkNavSlot = ::core::ffi::c_uint;
+pub const XTK_NAV_TITLE_BAR_NONE: XtkNavTitleBar = 0;
+pub const XTK_NAV_TITLE_BAR_COMPACT: XtkNavTitleBar = 1;
+pub const XTK_NAV_TITLE_BAR_TALL: XtkNavTitleBar = 2;
+pub type XtkNavTitleBar = ::core::ffi::c_uint;
+pub const XTK_NAV_BACK_AUTO: XtkNavBackButton = 0;
+pub const XTK_NAV_BACK_VISIBLE: XtkNavBackButton = 1;
+pub const XTK_NAV_BACK_COLLAPSED: XtkNavBackButton = 2;
+pub type XtkNavBackButton = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct XtkNavDesc {
     pub items: *const XtkNavItemDesc,
     pub nitem: ::core::ffi::c_int,
     pub sel: ::core::ffi::c_int,
-    pub window_title_bar: bool,
+    pub pane_mode: XtkNavPaneMode,
+    pub window_title_bar: u8,
     pub app_title: *const ::core::ffi::c_char,
     pub select: XtkMsg,
+    pub hide_settings: bool,
+    pub pane_title: *const ::core::ffi::c_char,
+    pub hide_header: bool,
+    pub back_button: XtkNavBackButton,
+    pub back_enabled: bool,
+    pub back_requested: XtkMsg,
 }
 pub const XTK_SPLITVIEW_INLINE: XtkSplitViewDisplayMode = 0;
 pub const XTK_SPLITVIEW_COMPACT_INLINE: XtkSplitViewDisplayMode = 1;
@@ -734,8 +842,9 @@ pub struct XtkEvent {
     pub change: XtkChangeStamp,
     pub payload: XtkEventPayload,
 }
-pub type XtkEventFn =
-    ::core::option::Option<unsafe extern "C" fn(arg: *mut ::core::ffi::c_void, event: *const XtkEvent) -> u32>;
+pub type XtkEventFn = ::core::option::Option<
+    unsafe extern "C" fn(arg: *mut ::core::ffi::c_void, event: *const XtkEvent) -> u32,
+>;
 pub type XtkSubId = u64;
 pub type XtkLocalId = u32;
 pub type XtkSubRef = u32;
@@ -945,7 +1054,10 @@ pub struct XtkBatchResult {
     pub subscription_count: u32,
 }
 unsafe extern "C" {
-    pub fn xtk_batchresult_create(control_count: u32, subscription_count: u32) -> *mut XtkBatchResult;
+    pub fn xtk_batchresult_create(
+        control_count: u32,
+        subscription_count: u32,
+    ) -> *mut XtkBatchResult;
 }
 unsafe extern "C" {
     pub fn xtk_batchresult_destroy(result: *mut XtkBatchResult);
@@ -992,7 +1104,11 @@ pub struct XtkValueView__bindgen_ty_1__bindgen_ty_2 {
 pub struct XtkHostVtable {
     pub abi: u32,
     pub preflight: ::core::option::Option<
-        unsafe extern "C" fn(host: *mut XtkHost, batch: *mut XtkBatch, diagnostic: *mut XtkBatchDiag) -> XtkBatchError,
+        unsafe extern "C" fn(
+            host: *mut XtkHost,
+            batch: *mut XtkBatch,
+            diagnostic: *mut XtkBatchDiag,
+        ) -> XtkBatchError,
     >,
     pub prepare: ::core::option::Option<
         unsafe extern "C" fn(
@@ -1009,16 +1125,28 @@ pub struct XtkHostVtable {
             diagnostic: *mut XtkBatchDiag,
         ) -> *mut XtkBatchResult,
     >,
-    pub abort: ::core::option::Option<unsafe extern "C" fn(host: *mut XtkHost, prepare: *mut XtkPrepare)>,
-    pub live: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> bool>,
+    pub abort:
+        ::core::option::Option<unsafe extern "C" fn(host: *mut XtkHost, prepare: *mut XtkPrepare)>,
+    pub live: ::core::option::Option<
+        unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> bool,
+    >,
     pub revision: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost) -> u64>,
     pub root: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost) -> XtkCtrl>,
-    pub type_: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrlId>,
-    pub parent: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl>,
-    pub first: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl>,
-    pub next: ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl>,
-    pub desc:
-        ::core::option::Option<unsafe extern "C" fn(host: *const XtkHost, type_: XtkCtrlId) -> *const XtkCtrlDesc>,
+    pub type_: ::core::option::Option<
+        unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrlId,
+    >,
+    pub parent: ::core::option::Option<
+        unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl,
+    >,
+    pub first: ::core::option::Option<
+        unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl,
+    >,
+    pub next: ::core::option::Option<
+        unsafe extern "C" fn(host: *const XtkHost, control: XtkCtrl) -> XtkCtrl,
+    >,
+    pub desc: ::core::option::Option<
+        unsafe extern "C" fn(host: *const XtkHost, type_: XtkCtrlId) -> *const XtkCtrlDesc,
+    >,
     pub prop: ::core::option::Option<
         unsafe extern "C" fn(
             host: *const XtkHost,
@@ -1029,17 +1157,27 @@ pub struct XtkHostVtable {
         ) -> bool,
     >,
     pub res_valid: ::core::option::Option<
-        unsafe extern "C" fn(host: *const XtkHost, resource: XtkResource, type_: XtkResourceTypeId) -> bool,
+        unsafe extern "C" fn(
+            host: *const XtkHost,
+            resource: XtkResource,
+            type_: XtkResourceTypeId,
+        ) -> bool,
     >,
     #[doc = " Batch commit copies the id and does not call this."]
     pub res_retain: ::core::option::Option<
-        unsafe extern "C" fn(host: *mut XtkHost, resource: XtkResource, type_: XtkResourceTypeId) -> bool,
+        unsafe extern "C" fn(
+            host: *mut XtkHost,
+            resource: XtkResource,
+            type_: XtkResourceTypeId,
+        ) -> bool,
     >,
     #[doc = " Batch commit copies the id and does not call this."]
     pub res_release: ::core::option::Option<
         unsafe extern "C" fn(host: *mut XtkHost, resource: XtkResource, type_: XtkResourceTypeId),
     >,
-    pub dispatch: ::core::option::Option<unsafe extern "C" fn(host: *mut XtkHost, event: *const XtkEvent) -> u32>,
+    pub dispatch: ::core::option::Option<
+        unsafe extern "C" fn(host: *mut XtkHost, event: *const XtkEvent) -> u32,
+    >,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1109,13 +1247,28 @@ unsafe extern "C" {
     ) -> bool;
 }
 unsafe extern "C" {
-    pub fn xtk_txn_insert(txn: *mut XtkTxn, parent: XtkNodeRef, child: XtkNodeRef, before: XtkNodeRef) -> bool;
+    pub fn xtk_txn_insert(
+        txn: *mut XtkTxn,
+        parent: XtkNodeRef,
+        child: XtkNodeRef,
+        before: XtkNodeRef,
+    ) -> bool;
 }
 unsafe extern "C" {
-    pub fn xtk_txn_move(txn: *mut XtkTxn, parent: XtkNodeRef, child: XtkNodeRef, before: XtkNodeRef) -> bool;
+    pub fn xtk_txn_move(
+        txn: *mut XtkTxn,
+        parent: XtkNodeRef,
+        child: XtkNodeRef,
+        before: XtkNodeRef,
+    ) -> bool;
 }
 unsafe extern "C" {
-    pub fn xtk_txn_reparent(txn: *mut XtkTxn, child: XtkNodeRef, new_parent: XtkNodeRef, before: XtkNodeRef) -> bool;
+    pub fn xtk_txn_reparent(
+        txn: *mut XtkTxn,
+        child: XtkNodeRef,
+        new_parent: XtkNodeRef,
+        before: XtkNodeRef,
+    ) -> bool;
 }
 unsafe extern "C" {
     pub fn xtk_txn_on(
@@ -1284,7 +1437,11 @@ unsafe extern "C" {
     pub fn xtk_catalog_standard(id: XtkCtrlId) -> bool;
 }
 unsafe extern "C" {
-    pub fn xtk_catalog_mirrors(control: XtkCtrlId, event: XtkEventId, out: *mut XtkPropertyId) -> u32;
+    pub fn xtk_catalog_mirrors(
+        control: XtkCtrlId,
+        event: XtkEventId,
+        out: *mut XtkPropertyId,
+    ) -> u32;
 }
 pub const FLUX_THEME_SYSTEM: FluxThemeMode = 0;
 pub const FLUX_THEME_LIGHT: FluxThemeMode = 1;
@@ -1308,8 +1465,12 @@ pub struct FluxAppCfg {
     pub height: ::core::ffi::c_int,
     pub theme: FluxThemeMode,
     pub backdrop: FluxBackdropType,
-    pub on_start: ::core::option::Option<unsafe extern "C" fn(app: *mut FluxApp, user: *mut ::core::ffi::c_void)>,
-    pub on_stop: ::core::option::Option<unsafe extern "C" fn(app: *mut FluxApp, user: *mut ::core::ffi::c_void)>,
+    pub on_start: ::core::option::Option<
+        unsafe extern "C" fn(app: *mut FluxApp, user: *mut ::core::ffi::c_void),
+    >,
+    pub on_stop: ::core::option::Option<
+        unsafe extern "C" fn(app: *mut FluxApp, user: *mut ::core::ffi::c_void),
+    >,
     pub user: *mut ::core::ffi::c_void,
 }
 unsafe extern "C" {
@@ -1611,4 +1772,25 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub static flux_ctrl_groupheader: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_comboitem: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_suggestitem: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_menupresenter: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_menurow: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_cmdovf: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_cmdovfrow: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_navslot: FluxControlModule;
 }
