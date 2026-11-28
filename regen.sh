@@ -10,9 +10,9 @@ for h in x86intrin.h immintrin.h x86gprintrin.h emmintrin.h xmmintrin.h pmmintri
 : "${LIBCLANG_PATH:?point LIBCLANG_PATH at a directory containing libclang.dll}"
 enums="$(cd "$xent/xent-kit" && xmake lua tools/gen_bindings.lua enum-types)"
 bindgen "$here/wrapper.h" -o "$here/src/bindings.rs" \
-  --allowlist-function 'xtk_(scene|txn|ctrl|catalog|batchresult)_.*' \
+  --allowlist-function 'xtk_(scene|txn|ctrl|catalog|batchresult|channel)_.*' \
   --allowlist-function 'flux_app_(create|destroy|run|redraw|onframe|invoke|attachhost)|flux_host_destroy|flux_controls_use' \
-  --allowlist-var 'XTK_.*|XENT_FLEX_.*|FLUX_BACKDROP_.*|FLUX_THEME_.*|flux_ctrl_.*' --allowlist-type 'XtkEvent|XtkEventPayload|XtkValueView|XtkBatchDiag|XtkCtrlType|XtkStandardPropertyId|XtkStandardEventId|XtkStandardResourceTypeId|XtkEventPhaseMask|XtkEventDisposition|XtkStackDirection|XtkNavTitleBar|'"$enums" \
+  --allowlist-var 'XTK_.*|XENT_FLEX_.*|FLUX_BACKDROP_.*|FLUX_THEME_.*|flux_ctrl_.*' --allowlist-type 'XtkChannel|XtkEvent|XtkEventPayload|XtkValueView|XtkBatchDiag|XtkCtrlType|XtkStandardPropertyId|XtkStandardEventId|XtkStandardResourceTypeId|XtkEventPhaseMask|XtkEventDisposition|XtkStackDirection|XtkNavTitleBar|'"$enums" \
   --no-layout-tests --use-core --default-enum-style consts --no-prepend-enum-name \
   -- -std=c17 --target=x86_64-w64-windows-gnu \
   -I"$xent/xent-kit/include" -I"$xent/xent-core/include" -I"$xent/fluxent/include" -I"$stub" \

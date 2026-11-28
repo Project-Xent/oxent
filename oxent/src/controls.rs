@@ -91,6 +91,14 @@ pub enum Clock {
 
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum ConnectedKind {
+    Gravity = sys::XTK_CONNECTED_GRAVITY as u32,
+    Direct = sys::XTK_CONNECTED_DIRECT as u32,
+    Basic = sys::XTK_CONNECTED_BASIC as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum DialogButton {
     None = sys::XTK_DIALOG_BUTTON_NONE as u32,
     Primary = sys::XTK_DIALOG_BUTTON_PRIMARY as u32,
@@ -237,6 +245,17 @@ pub enum NavSlot {
     Search = sys::XTK_NAV_SLOT_SEARCH as u32,
     PageHeader = sys::XTK_NAV_SLOT_PAGE_HEADER as u32,
     ContentOverlay = sys::XTK_NAV_SLOT_CONTENT_OVERLAY as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum NavTransitionKind {
+    Entrance = sys::XTK_NAV_TRANSITION_ENTRANCE as u32,
+    SlideRight = sys::XTK_NAV_TRANSITION_SLIDE_RIGHT as u32,
+    SlideLeft = sys::XTK_NAV_TRANSITION_SLIDE_LEFT as u32,
+    SlideBottom = sys::XTK_NAV_TRANSITION_SLIDE_BOTTOM as u32,
+    DrillIn = sys::XTK_NAV_TRANSITION_DRILL_IN as u32,
+    Suppress = sys::XTK_NAV_TRANSITION_SUPPRESS as u32,
 }
 
 #[repr(u32)]
@@ -388,6 +407,17 @@ pub enum TextTrim {
     Word = sys::XTK_TRIM_WORD as u32,
     WordEllipsis = sys::XTK_TRIM_WORD_ELLIPSIS as u32,
     PathEllipsis = sys::XTK_TRIM_PATH_ELLIPSIS as u32,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum ThemeTransitionKind {
+    None = sys::XTK_THEME_TRANSITION_NONE as u32,
+    Entrance = sys::XTK_THEME_TRANSITION_ENTRANCE as u32,
+    AddDelete = sys::XTK_THEME_TRANSITION_ADD_DELETE as u32,
+    Content = sys::XTK_THEME_TRANSITION_CONTENT as u32,
+    Reorder = sys::XTK_THEME_TRANSITION_REORDER as u32,
+    Popup = sys::XTK_THEME_TRANSITION_POPUP as u32,
 }
 
 #[repr(u32)]
@@ -860,6 +890,10 @@ impl<'ui, A: App> Text<'ui, A> {
     }
     pub fn selectable(self, v: bool) -> Self {
         self.0.prop(sys::XTK_PROP_SELECTABLE, Value::Bool(v));
+        self
+    }
+    pub fn fontfamily(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_FONT_FAMILY, Value::Str(v.into()));
         self
     }
 }
@@ -16716,6 +16750,268 @@ impl<'ui, A: App> Navslot<'ui, A> {
 
 impl<'ui, A: App> From<Navslot<'ui, A>> for El<'ui, A> {
     fn from(b: Navslot<'ui, A>) -> Self {
+        b.0
+    }
+}
+
+pub struct Frame<'ui, A: App>(pub(crate) El<'ui, A>);
+
+impl<'ui, A: App> Ui<'ui, A> {
+    pub fn frame(&'ui self) -> Frame<'ui, A> {
+        Frame(self.el(sys::XTK_CTRL_FRAME, &raw const sys::flux_ctrl_frame))
+    }
+}
+
+impl<'ui, A: App> Frame<'ui, A> {
+    pub fn key(self, key: u64) -> Self {
+        self.0.key(key);
+        self
+    }
+    pub fn child(self, child: impl Into<El<'ui, A>>) -> Self {
+        self.0.child(child.into());
+        self
+    }
+    pub fn children<I: IntoIterator<Item = El<'ui, A>>>(self, kids: I) -> Self {
+        for kid in kids {
+            self.0.child(kid);
+        }
+        self
+    }
+    pub fn w(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_WIDTH, Value::F32(v));
+        self
+    }
+    pub fn h(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_HEIGHT, Value::F32(v));
+        self
+    }
+    pub fn grow(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_GROW, Value::F32(v));
+        self
+    }
+    pub fn shrink(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_SHRINK, Value::F32(v));
+        self
+    }
+    pub fn self_(self, v: FlexAlign) -> Self {
+        self.0.prop(sys::XTK_PROP_ALIGN_SELF, Value::Enum(v as u32));
+        self
+    }
+    pub fn transition(self, v: NavTransitionKind) -> Self {
+        self.0.prop(sys::XTK_PROP_FRAME_TRANSITION, Value::Enum(v as u32));
+        self
+    }
+    pub fn is_back(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_FRAME_BACK, Value::Bool(v));
+        self
+    }
+    pub fn page_key(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_FRAME_PAGE_KEY, Value::I32(v));
+        self
+    }
+}
+
+impl<'ui, A: App> From<Frame<'ui, A>> for El<'ui, A> {
+    fn from(b: Frame<'ui, A>) -> Self {
+        b.0
+    }
+}
+
+pub struct Fonticon<'ui, A: App>(pub(crate) El<'ui, A>);
+
+impl<'ui, A: App> Ui<'ui, A> {
+    pub fn fonticon(&'ui self) -> Fonticon<'ui, A> {
+        Fonticon(self.el(sys::XTK_CTRL_FONTICON, &raw const sys::flux_ctrl_fonticon))
+    }
+}
+
+impl<'ui, A: App> Fonticon<'ui, A> {
+    pub fn key(self, key: u64) -> Self {
+        self.0.key(key);
+        self
+    }
+    pub fn child(self, child: impl Into<El<'ui, A>>) -> Self {
+        self.0.child(child.into());
+        self
+    }
+    pub fn children<I: IntoIterator<Item = El<'ui, A>>>(self, kids: I) -> Self {
+        for kid in kids {
+            self.0.child(kid);
+        }
+        self
+    }
+    pub fn w(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_WIDTH, Value::F32(v));
+        self
+    }
+    pub fn h(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_HEIGHT, Value::F32(v));
+        self
+    }
+    pub fn grow(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_GROW, Value::F32(v));
+        self
+    }
+    pub fn self_(self, v: FlexAlign) -> Self {
+        self.0.prop(sys::XTK_PROP_ALIGN_SELF, Value::Enum(v as u32));
+        self
+    }
+    pub fn ml(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_LEFT, Value::F32(v));
+        self
+    }
+    pub fn mt(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_TOP, Value::F32(v));
+        self
+    }
+    pub fn mr(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_RIGHT, Value::F32(v));
+        self
+    }
+    pub fn mb(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_MARGIN_BOTTOM, Value::F32(v));
+        self
+    }
+    pub fn tip(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_TOOLTIP, Value::Str(v.into()));
+        self
+    }
+    pub fn aname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn aid(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ID, Value::Str(v.into()));
+        self
+    }
+    pub fn ahelp(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HELP, Value::Str(v.into()));
+        self
+    }
+    pub fn adesc(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIPTION, Value::Str(v.into()));
+        self
+    }
+    pub fn astatus(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_STATUS, Value::Str(v.into()));
+        self
+    }
+    pub fn aitem(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ITEM_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn actype(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROL_TYPE, Value::Str(v.into()));
+        self
+    }
+    pub fn aaccel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCELERATOR, Value::Str(v.into()));
+        self
+    }
+    pub fn akey(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_ACCESS_KEY, Value::Str(v.into()));
+        self
+    }
+    pub fn alandmark(self, v: Landmark) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK, Value::Enum(v as u32));
+        self
+    }
+    pub fn alandname(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LANDMARK_NAME, Value::Str(v.into()));
+        self
+    }
+    pub fn alive(self, v: LiveSetting) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LIVE, Value::Enum(v as u32));
+        self
+    }
+    pub fn aheading(self, v: HeadingLevel) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_HEADING, Value::Enum(v as u32));
+        self
+    }
+    pub fn aview(self, v: AccessView) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_VIEW, Value::Enum(v as u32));
+        self
+    }
+    pub fn arequired(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_REQUIRED, Value::Bool(v));
+        self
+    }
+    pub fn avalid(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DATA_VALID, Value::Bool(v));
+        self
+    }
+    pub fn aperipheral(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_PERIPHERAL, Value::Bool(v));
+        self
+    }
+    pub fn adialog(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DIALOG, Value::Bool(v));
+        self
+    }
+    pub fn apos(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_POSITION, Value::I32(v));
+        self
+    }
+    pub fn asize(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_SIZE, Value::I32(v));
+        self
+    }
+    pub fn alevel(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LEVEL, Value::I32(v));
+        self
+    }
+    pub fn aculture(self, v: i32) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CULTURE, Value::I32(v));
+        self
+    }
+    pub fn alabel(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_LABELED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn adescribed(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_DESCRIBED_BY, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsto(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_TO, Value::Str(v.into()));
+        self
+    }
+    pub fn aflowsfrom(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_FLOWS_FROM, Value::Str(v.into()));
+        self
+    }
+    pub fn acontrols(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_A11Y_CONTROLLED, Value::Str(v.into()));
+        self
+    }
+    pub fn glyph(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_ICON, Value::Str(v.into()));
+        self
+    }
+    pub fn fontfamily(self, v: &str) -> Self {
+        self.0.prop(sys::XTK_PROP_FONT_FAMILY, Value::Str(v.into()));
+        self
+    }
+    pub fn fontsize(self, v: f32) -> Self {
+        self.0.prop(sys::XTK_PROP_FONT_SIZE, Value::F32(v));
+        self
+    }
+    pub fn fontweight(self, v: FontWeight) -> Self {
+        self.0.prop(sys::XTK_PROP_FONT_WEIGHT, Value::Enum(v as u32));
+        self
+    }
+    pub fn fg(self, v: u32) -> Self {
+        self.0.prop(sys::XTK_PROP_FOREGROUND, Value::Color(v));
+        self
+    }
+    pub fn mirrorrtl(self, v: bool) -> Self {
+        self.0.prop(sys::XTK_PROP_MIRROR_RTL, Value::Bool(v));
+        self
+    }
+}
+
+impl<'ui, A: App> From<Fonticon<'ui, A>> for El<'ui, A> {
+    fn from(b: Fonticon<'ui, A>) -> Self {
         b.0
     }
 }

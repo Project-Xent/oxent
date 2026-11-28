@@ -1,7 +1,9 @@
+mod channel;
 mod controls;
 mod ffi;
 mod reconcile;
 
+pub use channel::Channel;
 pub use controls::*;
 pub use oxent_sys as sys;
 

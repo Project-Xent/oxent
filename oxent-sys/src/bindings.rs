@@ -99,7 +99,9 @@ pub const XTK_CTRL_MENUROW: XtkCtrlType = 90;
 pub const XTK_CTRL_CMDOVF: XtkCtrlType = 91;
 pub const XTK_CTRL_CMDOVFROW: XtkCtrlType = 92;
 pub const XTK_CTRL_NAVSLOT: XtkCtrlType = 93;
-pub const XTK_CTRL_TYPE_COUNT: XtkCtrlType = 94;
+pub const XTK_CTRL_FRAME: XtkCtrlType = 94;
+pub const XTK_CTRL_FONTICON: XtkCtrlType = 95;
+pub const XTK_CTRL_TYPE_COUNT: XtkCtrlType = 96;
 pub type XtkCtrlType = ::core::ffi::c_uint;
 pub const XTK_PROP_INVALID: XtkStandardPropertyId = 0;
 pub const XTK_PROP_WIDTH: XtkStandardPropertyId = 1;
@@ -303,7 +305,27 @@ pub const XTK_PROP_NAV_SLOT: XtkStandardPropertyId = 198;
 pub const XTK_PROP_ALWAYS_SHOW_HEADER: XtkStandardPropertyId = 199;
 pub const XTK_PROP_NAV_BACK_BUTTON: XtkStandardPropertyId = 200;
 pub const XTK_PROP_NAV_BACK_ENABLED: XtkStandardPropertyId = 201;
-pub const XTK_PROP_STANDARD_COUNT: XtkStandardPropertyId = 202;
+pub const XTK_PROP_STYLE_BG: XtkStandardPropertyId = 202;
+pub const XTK_PROP_STYLE_BORDER: XtkStandardPropertyId = 203;
+pub const XTK_PROP_STYLE_RADIUS: XtkStandardPropertyId = 204;
+pub const XTK_PROP_STYLE_BORDER_W: XtkStandardPropertyId = 205;
+pub const XTK_PROP_STYLE_OPACITY: XtkStandardPropertyId = 206;
+pub const XTK_PROP_STYLE_TX: XtkStandardPropertyId = 207;
+pub const XTK_PROP_STYLE_TY: XtkStandardPropertyId = 208;
+pub const XTK_PROP_STYLE_SX: XtkStandardPropertyId = 209;
+pub const XTK_PROP_STYLE_SY: XtkStandardPropertyId = 210;
+pub const XTK_PROP_STYLE_ROTATION: XtkStandardPropertyId = 211;
+pub const XTK_PROP_MOTION_IMPLICIT: XtkStandardPropertyId = 212;
+pub const XTK_PROP_MOTION_ENTER_EXIT: XtkStandardPropertyId = 213;
+pub const XTK_PROP_CONNECTED_KEY: XtkStandardPropertyId = 214;
+pub const XTK_PROP_CONNECTED_CONFIG: XtkStandardPropertyId = 215;
+pub const XTK_PROP_CONNECTED_COORD: XtkStandardPropertyId = 216;
+pub const XTK_PROP_FRAME_TRANSITION: XtkStandardPropertyId = 217;
+pub const XTK_PROP_FRAME_BACK: XtkStandardPropertyId = 218;
+pub const XTK_PROP_FRAME_PAGE_KEY: XtkStandardPropertyId = 219;
+pub const XTK_PROP_FONT_FAMILY: XtkStandardPropertyId = 220;
+pub const XTK_PROP_MIRROR_RTL: XtkStandardPropertyId = 221;
+pub const XTK_PROP_STANDARD_COUNT: XtkStandardPropertyId = 222;
 pub type XtkStandardPropertyId = ::core::ffi::c_uint;
 pub const XTK_EVENT_INVALID: XtkStandardEventId = 0;
 pub const XTK_EVENT_INVOKE: XtkStandardEventId = 1;
@@ -596,6 +618,12 @@ pub const XENT_DIRECTION_INHERIT: XentDirection = 0;
 pub const XENT_DIRECTION_LTR: XentDirection = 1;
 pub const XENT_DIRECTION_RTL: XentDirection = 2;
 pub type XentDirection = ::core::ffi::c_uint;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct XtkModelVer {
+    pub ptr: *const ::core::ffi::c_void,
+    pub revision: u64,
+}
 pub const XTK_CLOCK_SYSTEM: XtkClock = 0;
 pub const XTK_CLOCK_12H: XtkClock = 1;
 pub const XTK_CLOCK_24H: XtkClock = 2;
@@ -684,6 +712,7 @@ pub struct XtkTreeDesc {
     pub invoke: XtkMsg,
     pub expand: XtkMsg,
     pub select: XtkMsg,
+    pub version: XtkModelVer,
 }
 pub const XTK_NAV_PANE_AUTO: XtkNavPaneMode = 0;
 pub const XTK_NAV_PANE_LEFT: XtkNavPaneMode = 1;
@@ -725,6 +754,7 @@ pub struct XtkNavDesc {
     pub back_button: XtkNavBackButton,
     pub back_enabled: bool,
     pub back_requested: XtkMsg,
+    pub version: XtkModelVer,
 }
 pub const XTK_SPLITVIEW_INLINE: XtkSplitViewDisplayMode = 0;
 pub const XTK_SPLITVIEW_COMPACT_INLINE: XtkSplitViewDisplayMode = 1;
@@ -734,6 +764,48 @@ pub type XtkSplitViewDisplayMode = ::core::ffi::c_uint;
 pub const XTK_SPLITVIEW_LEFT: XtkSplitViewPanePlacement = 0;
 pub const XTK_SPLITVIEW_RIGHT: XtkSplitViewPanePlacement = 1;
 pub type XtkSplitViewPanePlacement = ::core::ffi::c_uint;
+pub const XTK_NAV_TRANSITION_ENTRANCE: XtkNavTransitionKind = 0;
+pub const XTK_NAV_TRANSITION_SLIDE_RIGHT: XtkNavTransitionKind = 1;
+pub const XTK_NAV_TRANSITION_SLIDE_LEFT: XtkNavTransitionKind = 2;
+pub const XTK_NAV_TRANSITION_SLIDE_BOTTOM: XtkNavTransitionKind = 3;
+pub const XTK_NAV_TRANSITION_DRILL_IN: XtkNavTransitionKind = 4;
+pub const XTK_NAV_TRANSITION_SUPPRESS: XtkNavTransitionKind = 5;
+pub type XtkNavTransitionKind = ::core::ffi::c_uint;
+pub const XTK_THEME_TRANSITION_NONE: XtkThemeTransitionKind = 0;
+pub const XTK_THEME_TRANSITION_ENTRANCE: XtkThemeTransitionKind = 1;
+pub const XTK_THEME_TRANSITION_ADD_DELETE: XtkThemeTransitionKind = 2;
+pub const XTK_THEME_TRANSITION_CONTENT: XtkThemeTransitionKind = 3;
+pub const XTK_THEME_TRANSITION_REORDER: XtkThemeTransitionKind = 4;
+pub const XTK_THEME_TRANSITION_POPUP: XtkThemeTransitionKind = 5;
+pub type XtkThemeTransitionKind = ::core::ffi::c_uint;
+pub const XTK_CONNECTED_GRAVITY: XtkConnectedKind = 0;
+pub const XTK_CONNECTED_DIRECT: XtkConnectedKind = 1;
+pub const XTK_CONNECTED_BASIC: XtkConnectedKind = 2;
+pub type XtkConnectedKind = ::core::ffi::c_uint;
+pub const XTK_STYLE_BACKGROUND: _bindgen_ty_2 = 1;
+pub const XTK_STYLE_BORDER_COLOR: _bindgen_ty_2 = 2;
+pub const XTK_STYLE_CORNER_RADIUS: _bindgen_ty_2 = 4;
+pub const XTK_STYLE_BORDER_WIDTH: _bindgen_ty_2 = 8;
+pub const XTK_STYLE_OPACITY: _bindgen_ty_2 = 16;
+pub const XTK_STYLE_TRANSLATE_X: _bindgen_ty_2 = 32;
+pub const XTK_STYLE_TRANSLATE_Y: _bindgen_ty_2 = 64;
+pub const XTK_STYLE_SCALE_X: _bindgen_ty_2 = 128;
+pub const XTK_STYLE_SCALE_Y: _bindgen_ty_2 = 256;
+pub const XTK_STYLE_ROTATION: _bindgen_ty_2 = 512;
+pub type _bindgen_ty_2 = ::core::ffi::c_uint;
+pub const XTK_MOTION_OPACITY: _bindgen_ty_3 = 1;
+pub const XTK_MOTION_TRANSLATE_X: _bindgen_ty_3 = 2;
+pub const XTK_MOTION_TRANSLATE_Y: _bindgen_ty_3 = 4;
+pub const XTK_MOTION_SCALE_X: _bindgen_ty_3 = 8;
+pub const XTK_MOTION_SCALE_Y: _bindgen_ty_3 = 16;
+pub const XTK_MOTION_ROTATION: _bindgen_ty_3 = 32;
+pub const XTK_MOTION_BACKGROUND: _bindgen_ty_3 = 64;
+pub const XTK_MOTION_BORDER_COLOR: _bindgen_ty_3 = 128;
+pub const XTK_MOTION_CORNER_RADIUS: _bindgen_ty_3 = 256;
+pub const XTK_MOTION_TRANSLATE: _bindgen_ty_3 = 6;
+pub const XTK_MOTION_SCALE: _bindgen_ty_3 = 24;
+pub const XTK_MOTION_ALL: _bindgen_ty_3 = 511;
+pub type _bindgen_ty_3 = ::core::ffi::c_uint;
 pub type XtkSourceId = u64;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1412,6 +1484,114 @@ unsafe extern "C" {
         out_change: *mut XtkChangeStamp,
     ) -> bool;
 }
+#[repr(C)]
+#[derive(Debug)]
+pub struct XtkChannel {
+    _unused: [u8; 0],
+}
+unsafe extern "C" {
+    pub fn xtk_channel_create(scene: XtkScene) -> *mut XtkChannel;
+}
+unsafe extern "C" {
+    pub fn xtk_channel_destroy(ch: *mut XtkChannel);
+}
+unsafe extern "C" {
+    pub fn xtk_channel_pending(ch: *const XtkChannel) -> u32;
+}
+unsafe extern "C" {
+    pub fn xtk_channel_clear(ch: *mut XtkChannel);
+}
+unsafe extern "C" {
+    pub fn xtk_channel_set(
+        ch: *mut XtkChannel,
+        target: XtkCtrl,
+        id: XtkPropertyId,
+        value: XtkValue,
+        change: XtkChangeStamp,
+    ) -> bool;
+}
+unsafe extern "C" {
+    pub fn xtk_channel_set_bool(
+        ch: *mut XtkChannel,
+        target: XtkCtrl,
+        id: XtkPropertyId,
+        value: bool,
+        change: XtkChangeStamp,
+    ) -> bool;
+}
+unsafe extern "C" {
+    pub fn xtk_channel_set_i32(
+        ch: *mut XtkChannel,
+        target: XtkCtrl,
+        id: XtkPropertyId,
+        value: i32,
+        change: XtkChangeStamp,
+    ) -> bool;
+}
+unsafe extern "C" {
+    pub fn xtk_channel_set_f32(
+        ch: *mut XtkChannel,
+        target: XtkCtrl,
+        id: XtkPropertyId,
+        value: f32,
+        change: XtkChangeStamp,
+    ) -> bool;
+}
+unsafe extern "C" {
+    pub fn xtk_channel_set_f64(
+        ch: *mut XtkChannel,
+        target: XtkCtrl,
+        id: XtkPropertyId,
+        value: f64,
+        change: XtkChangeStamp,
+    ) -> bool;
+}
+unsafe extern "C" {
+    pub fn xtk_channel_set_enum(
+        ch: *mut XtkChannel,
+        target: XtkCtrl,
+        id: XtkPropertyId,
+        value: u32,
+        change: XtkChangeStamp,
+    ) -> bool;
+}
+unsafe extern "C" {
+    pub fn xtk_channel_set_color(
+        ch: *mut XtkChannel,
+        target: XtkCtrl,
+        id: XtkPropertyId,
+        value: XtkColor,
+        change: XtkChangeStamp,
+    ) -> bool;
+}
+unsafe extern "C" {
+    pub fn xtk_channel_set_resource(
+        ch: *mut XtkChannel,
+        target: XtkCtrl,
+        id: XtkPropertyId,
+        value: XtkResource,
+        change: XtkChangeStamp,
+    ) -> bool;
+}
+unsafe extern "C" {
+    pub fn xtk_channel_set_string(
+        ch: *mut XtkChannel,
+        target: XtkCtrl,
+        id: XtkPropertyId,
+        data: *const ::core::ffi::c_char,
+        len: u32,
+        change: XtkChangeStamp,
+    ) -> bool;
+}
+unsafe extern "C" {
+    pub fn xtk_channel_flush(
+        ch: *mut XtkChannel,
+        diagnostic: *mut XtkBatchDiag,
+    ) -> *mut XtkBatchResult;
+}
+unsafe extern "C" {
+    pub fn xtk_channel_commit(ch: *mut XtkChannel, diagnostic: *mut XtkBatchDiag) -> bool;
+}
 pub const XTK_STACK_COLUMN: XtkStackDirection = 0;
 pub const XTK_STACK_ROW: XtkStackDirection = 1;
 pub type XtkStackDirection = ::core::ffi::c_uint;
@@ -1793,4 +1973,10 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub static flux_ctrl_navslot: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_frame: FluxControlModule;
+}
+unsafe extern "C" {
+    pub static flux_ctrl_fonticon: FluxControlModule;
 }
