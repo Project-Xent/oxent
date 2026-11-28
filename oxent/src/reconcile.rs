@@ -377,7 +377,12 @@ pub(crate) fn run<A: App>(window: Window<'_>, app: A) -> i32 {
             Theme::Light => sys::FLUX_THEME_LIGHT,
             Theme::Dark => sys::FLUX_THEME_DARK,
         },
-        backdrop: sys::FLUX_BACKDROP_MICA,
+        backdrop: match window.backdrop {
+            crate::Backdrop::None => sys::FLUX_BACKDROP_NONE,
+            crate::Backdrop::Mica => sys::FLUX_BACKDROP_MICA,
+            crate::Backdrop::MicaAlt => sys::FLUX_BACKDROP_MICA_ALT,
+            crate::Backdrop::Acrylic => sys::FLUX_BACKDROP_ACRYLIC,
+        },
         on_start: None,
         on_stop: None,
         user: null_mut(),
