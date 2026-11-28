@@ -6,8 +6,13 @@ version = 4
 name = "oxent"
 version = "0.4.0"
 dependencies = [
+ "oxent-macros",
  "oxent-sys",
 ]
+
+[[package]]
+name = "oxent-macros"
+version = "0.4.0"
 
 [[package]]
 name = "oxent-sys"

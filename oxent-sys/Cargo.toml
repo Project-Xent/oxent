@@ -11,6 +11,9 @@ categories.workspace = true
 links = "xent"
 include = ["src/**", "build.rs", "wrapper.h", "native/*/libxent.a", "LICENSE"]
 
+[features]
+hot = []
+
 [package.metadata.docs.rs]
 default-target = "x86_64-pc-windows-gnullvm"
 targets = ["x86_64-pc-windows-gnullvm", "aarch64-pc-windows-gnullvm"]

@@ -8,10 +8,32 @@ license.workspace = true
 repository.workspace = true
 keywords.workspace = true
 categories.workspace = true
-include = ["src/**", "examples/**", "LICENSE"]
+include = ["src/**", "examples/**", "build.rs", "LICENSE"]
 
 [dependencies]
 oxent-sys = { path = "../oxent-sys", version = "=0.4.0" }
+oxent-macros = { path = "../oxent-macros", version = "=0.4.0" }
+
+[[example]]
+name = "counter"
+
+[[example]]
+name = "counter_view"
+path = "examples/counter.rs"
+crate-type = ["cdylib"]
+required-features = ["hot"]
+
+[[example]]
+name = "virtual_list"
+
+[[example]]
+name = "virtual_list_view"
+path = "examples/virtual_list.rs"
+crate-type = ["cdylib"]
+required-features = ["hot"]
+
+[features]
+hot = ["oxent-sys/hot"]
 
 [package.metadata.docs.rs]
 default-target = "x86_64-pc-windows-gnullvm"

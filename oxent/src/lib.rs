@@ -1,10 +1,13 @@
 mod channel;
 mod controls;
 mod ffi;
+#[doc(hidden)]
+pub mod hot;
 mod reconcile;
 
 pub use channel::Channel;
 pub use controls::*;
+pub use oxent_macros::Model;
 pub use oxent_sys as sys;
 
 use core::cell::RefCell;
@@ -201,4 +204,46 @@ impl Default for Window<'_> {
 
 pub fn run<A: App>(window: Window<'_>, app: A) -> i32 {
     reconcile::run(window, app)
+}
+
+#[doc(hidden)]
+pub fn launch<A: App>(window: Window<'_>, init: fn() -> A, name: &str, dir: &str) -> i32 {
+    #[cfg(feature = "hot")]
+    {
+        let _ = init;
+        hot::host(window, name, dir)
+    }
+    #[cfg(not(feature = "hot"))]
+    {
+        let _ = (name, dir);
+        run(window, init())
+    }
+}
+
+/// Declares the program's `main` and its hot reload entry. With the `hot` feature, an example `name`
+/// runs as a host that loads `name_view.dll`, built from the same file as the `name_view` cdylib example.
+#[macro_export]
+macro_rules! app {
+    ($model:ty, $init:expr, $window:expr) => {
+        struct __OxentInit;
+
+        impl $crate::hot::Init<$model> for __OxentInit {
+            fn init() -> $model {
+                $init
+            }
+        }
+
+        static __OXENT_HOT: $crate::hot::Desc = $crate::hot::desc::<$model, __OxentInit>();
+
+        #[unsafe(no_mangle)]
+        pub extern "C" fn oxent_hot_module() -> *const $crate::hot::Desc {
+            &__OXENT_HOT
+        }
+
+        #[allow(dead_code)]
+        fn main() {
+            let init: fn() -> $model = <__OxentInit as $crate::hot::Init<$model>>::init;
+            ::std::process::exit($crate::launch($window, init, env!("CARGO_CRATE_NAME"), env!("CARGO_MANIFEST_DIR")));
+        }
+    };
 }

@@ -1,3 +1,4 @@
+use crate::hot::HostState;
 use crate::{App, El, ElData, Handler, Theme, Ui, Value, Window, ffi};
 use core::cell::{Cell, RefCell};
 use core::ffi::c_void;
@@ -22,6 +23,7 @@ impl<A: App> Shared<A> {
     }
 }
 
+#[repr(C)]
 struct NodeState<A: App> {
     shared: *const Shared<A>,
     handlers: RefCell<Vec<(u32, Handler<A::Msg>)>>,
@@ -35,6 +37,7 @@ enum Sub {
     Live(sys::XtkSubId),
 }
 
+#[repr(C)]
 struct Node<A: App> {
     ctrl: sys::XtkCtrl,
     local: Option<sys::XtkLocalId>,
@@ -86,6 +89,7 @@ struct Recon<'r, 'ui, A: App> {
     txn: &'r mut sys::XtkTxn,
     shared: *const Shared<A>,
     graveyard: Vec<Node<A>>,
+    resub: bool,
 }
 
 fn prop_f32(props: &[(u32, Value)], id: u32, fallback: f32) -> f32 {
@@ -218,8 +222,9 @@ impl<'r, 'ui, A: App> Recon<'r, 'ui, A> {
 
     fn diff_subs(&mut self, node: &mut Node<A>, wanted: Vec<u32>) {
         let txn = &mut *self.txn;
+        let resub = self.resub;
         node.subs.retain(|(event, sub)| {
-            let keep = wanted.contains(event);
+            let keep = !resub && wanted.contains(event);
             if let (false, Sub::Live(id)) = (keep, sub) {
                 unsafe { sys::xtk_txn_off(txn, *id) };
             }
@@ -316,11 +321,12 @@ fn resolve<A: App>(node: &mut Node<A>, result: &sys::XtkBatchResult) {
 }
 
 struct Runtime<A: App> {
-    app: A,
+    app: *mut A,
     shared: Box<Shared<A>>,
     scene: sys::XtkScene,
     root: sys::XtkCtrl,
     tree: Option<Node<A>>,
+    resub: bool,
 }
 
 impl<A: App> Runtime<A> {
@@ -329,7 +335,7 @@ impl<A: App> Runtime<A> {
         loop {
             let msg = self.shared.queue.borrow_mut().pop_front();
             let Some(msg) = msg else { return any };
-            self.app.update(msg);
+            unsafe { (*self.app).update(msg) };
             any = true;
         }
     }
@@ -339,14 +345,15 @@ impl<A: App> Runtime<A> {
         if !drained && !self.shared.dirty.replace(false) && self.tree.is_some() {
             return;
         }
-        let Runtime { app, shared, scene, root, tree } = self;
-        let ui = Ui::new(&*app);
+        let Runtime { app, shared, scene, root, tree, resub } = self;
+        let app = unsafe { &**app };
+        let ui = Ui::new(app);
         let top: El<'_, A> = app.view(&ui);
         let mut txn = sys::XtkTxn { scene: null_mut(), batch: null_mut(), borrowed: false };
         assert!(unsafe { sys::xtk_txn_begin(scene, &mut txn) }, "begin transaction");
         let old = tree.take().map(|n| vec![n]).unwrap_or_default();
         let (mut next, graveyard) = {
-            let mut recon = Recon { ui: &ui, txn: &mut txn, shared: &**shared, graveyard: Vec::new() };
+            let mut recon = Recon { ui: &ui, txn: &mut txn, shared: &**shared, graveyard: Vec::new(), resub: *resub };
             let next = recon.kids(old, &[top.id], ffi::existing(*root));
             (next, recon.graveyard)
         };
@@ -357,8 +364,92 @@ impl<A: App> Runtime<A> {
         resolve(&mut node, unsafe { &*result });
         unsafe { sys::xtk_batchresult_destroy(result) };
         *tree = Some(node);
+        *resub = false;
         drop(graveyard);
     }
+
+    fn new(app: *mut A, flux: *mut sys::FluxApp, host: *mut sys::XtkHost) -> Box<Self> {
+        let shared =
+            Box::new(Shared { queue: RefCell::new(VecDeque::new()), app: Cell::new(flux), dirty: Cell::new(true) });
+        let scene = unsafe { sys::xtk_scene_fromhost(host) };
+        let mut rt = Box::new(Runtime { app, shared, scene, root: 0, tree: None, resub: false });
+        rt.root = unsafe { sys::xtk_scene_root(&rt.scene) };
+        rt
+    }
+
+    fn drop_tree(&mut self, tree: &Node<A>) {
+        let mut txn = sys::XtkTxn { scene: null_mut(), batch: null_mut(), borrowed: false };
+        if !unsafe { sys::xtk_txn_begin(&mut self.scene, &mut txn) } {
+            return;
+        }
+        let result = unsafe {
+            if !sys::xtk_txn_drop(&mut txn, ffi::existing(tree.ctrl)) {
+                sys::xtk_txn_abort(&mut txn);
+                return;
+            }
+            sys::xtk_txn_commit(&mut txn, null_mut())
+        };
+        if result.is_null() {
+            unsafe { sys::xtk_txn_abort(&mut txn) };
+        } else {
+            unsafe { sys::xtk_batchresult_destroy(result) };
+        }
+    }
+}
+
+fn adopt<A: App>(node: &mut Node<A>, shared: *const Shared<A>) {
+    node.state.shared = shared;
+    core::mem::forget(node.state.handlers.take());
+    for kid in node.kids.iter_mut() {
+        adopt(kid, shared);
+    }
+}
+
+pub(crate) fn preflight<A: App>(app: &A) -> bool {
+    std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        let ui = Ui::new(app);
+        let _ = app.view(&ui);
+    }))
+    .is_ok()
+}
+
+pub(crate) unsafe fn hot_drain<A: App>(state: &mut HostState) {
+    let rt = unsafe { &mut *(state.rt as *mut Runtime<A>) };
+    rt.drain();
+}
+
+pub(crate) unsafe fn hot_attach<A: App>(state: &mut HostState) {
+    let mut rt = Runtime::<A>::new(state.model as *mut A, state.flux, state.host);
+    if !state.tree.is_null() {
+        let mut tree = *unsafe { Box::from_raw(state.tree as *mut Node<A>) };
+        adopt(&mut tree, &*rt.shared);
+        rt.tree = Some(tree);
+        rt.resub = true;
+        state.tree = null_mut();
+    }
+    if state.running {
+        rt.frame();
+    } else {
+        rt.shared.wake();
+    }
+    state.rt = Box::into_raw(rt) as *mut c_void;
+}
+
+pub(crate) unsafe fn hot_detach<A: App>(state: &mut HostState, keep: bool) {
+    let mut rt = unsafe { Box::from_raw(state.rt as *mut Runtime<A>) };
+    state.rt = null_mut();
+    rt.drain();
+    let Some(tree) = rt.tree.take() else { return };
+    if keep {
+        state.tree = Box::into_raw(Box::new(tree)) as *mut c_void;
+    } else {
+        rt.drop_tree(&tree);
+    }
+}
+
+pub(crate) unsafe fn hot_frame<A: App>(state: &mut HostState) {
+    let rt = unsafe { &mut *(state.rt as *mut Runtime<A>) };
+    rt.frame();
 }
 
 unsafe extern "C" fn frame<A: App>(ctx: *mut c_void) {
@@ -366,9 +457,8 @@ unsafe extern "C" fn frame<A: App>(ctx: *mut c_void) {
     rt.frame();
 }
 
-pub(crate) fn run<A: App>(window: Window<'_>, app: A) -> i32 {
-    let title: Vec<u16> = window.title.encode_utf16().chain(Some(0)).collect();
-    let cfg = sys::FluxAppCfg {
+pub(crate) fn app_cfg(window: &Window<'_>, title: &[u16]) -> sys::FluxAppCfg {
+    sys::FluxAppCfg {
         title: title.as_ptr(),
         width: window.width,
         height: window.height,
@@ -381,7 +471,12 @@ pub(crate) fn run<A: App>(window: Window<'_>, app: A) -> i32 {
         on_start: None,
         on_stop: None,
         user: null_mut(),
-    };
+    }
+}
+
+pub(crate) fn run<A: App>(window: Window<'_>, app: A) -> i32 {
+    let title: Vec<u16> = window.title.encode_utf16().chain(Some(0)).collect();
+    let cfg = app_cfg(&window, &title);
     let flux = unsafe { sys::flux_app_create(&cfg) };
     if flux.is_null() {
         return 1;
@@ -391,11 +486,8 @@ pub(crate) fn run<A: App>(window: Window<'_>, app: A) -> i32 {
         unsafe { sys::flux_app_destroy(flux) };
         return 1;
     }
-    let shared =
-        Box::new(Shared { queue: RefCell::new(VecDeque::new()), app: Cell::new(flux), dirty: Cell::new(true) });
-    let scene = unsafe { sys::xtk_scene_fromhost(host) };
-    let mut rt = Box::new(Runtime { app, shared, scene, root: 0, tree: None });
-    rt.root = unsafe { sys::xtk_scene_root(&rt.scene) };
+    let model = Box::into_raw(Box::new(app));
+    let mut rt = Runtime::new(model, flux, host);
     let ctx = &mut *rt as *mut Runtime<A> as *mut c_void;
     let code = unsafe {
         sys::flux_app_onframe(flux, Some(frame::<A>), ctx);
@@ -410,5 +502,6 @@ pub(crate) fn run<A: App>(window: Window<'_>, app: A) -> i32 {
         sys::flux_app_destroy(flux);
     }
     drop(rt);
+    drop(unsafe { Box::from_raw(model) });
     code
 }

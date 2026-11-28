@@ -9,6 +9,7 @@ enum Msg {
     Reset,
 }
 
+#[derive(oxent::Model)]
 struct Counter {
     n: i32,
 }
@@ -49,6 +50,4 @@ impl App for Counter {
     }
 }
 
-fn main() {
-    std::process::exit(oxent::run(Window { title: "oxent counter", ..Default::default() }, Counter { n: 0 }));
-}
+oxent::app!(Counter, Counter { n: 0 }, Window { title: "oxent counter", ..Default::default() });

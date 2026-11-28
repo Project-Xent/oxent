@@ -1,0 +1,14 @@
+[package]
+name = "oxent-macros"
+description = "Derive macros for the oxent Xent bindings"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+include = ["src/**", "LICENSE"]
+
+[lib]
+proc-macro = true

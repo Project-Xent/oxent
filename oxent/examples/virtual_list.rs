@@ -7,6 +7,7 @@ enum Msg {
     Select(i32),
 }
 
+#[derive(oxent::Model)]
 struct Rows {
     selected: i32,
 }
@@ -58,6 +59,4 @@ impl App for Rows {
     }
 }
 
-fn main() {
-    std::process::exit(oxent::run(Window { title: "oxent virtual list", ..Default::default() }, Rows { selected: -1 }));
-}
+oxent::app!(Rows, Rows { selected: -1 }, Window { title: "oxent virtual list", ..Default::default() });

@@ -56,6 +56,15 @@ fn lib_dir() -> PathBuf {
     if local.join("libfluxent.a").exists() { local } else { manifest.join("native").join(arch()) }
 }
 
+fn copy_runtime(dir: &std::path::Path) {
+    let out = PathBuf::from(env::var("OUT_DIR").unwrap());
+    let Some(profile) = out.ancestors().find(|p| p.ends_with("build")).and_then(|p| p.parent()) else { return };
+    for dest in [profile.to_path_buf(), profile.join("examples")] {
+        let _ = std::fs::create_dir_all(&dest);
+        let _ = std::fs::copy(dir.join("libxent_dev.dll"), dest.join("libxent_dev.dll"));
+    }
+}
+
 fn main() {
     println!("cargo:rerun-if-env-changed=XENT_LIB_DIR");
     if env::var_os("DOCS_RS").is_some() {
@@ -63,6 +72,17 @@ fn main() {
     }
     let dir = lib_dir();
     println!("cargo:rustc-link-search=native={}", dir.display());
+    if env::var_os("CARGO_FEATURE_HOT").is_some() {
+        let dll = dir.join("libxent_dev.dll.a");
+        assert!(dll.exists(), "missing {}; build fluxent's xent_dev target first", dll.display());
+        println!("cargo:rerun-if-changed={}", dll.display());
+        println!("cargo:rustc-link-lib=dylib=xent_dev");
+        copy_runtime(&dir);
+        for lib in SYSLINKS {
+            println!("cargo:rustc-link-lib=dylib={lib}");
+        }
+        return;
+    }
     let bundle = dir.join("libxent.a").exists();
     for lib in if bundle { &["xent"][..] } else { LIBS } {
         let file = dir.join(format!("lib{lib}.a"));
